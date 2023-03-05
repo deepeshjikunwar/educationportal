@@ -1,0 +1,82 @@
+body{
+    background-color: skyblue;
+}
+
+
+#singup_form{
+    margin-left: 35%;
+    border: 2px solid white;
+    width: 453px;
+    height: 420px;
+    color: black;
+    text-align: center;
+    padding: 10px;
+    background-color: skyblue;
+    border-radius: 10px;
+    transition: ease-in-out 0.5s;
+    margin-left: 425px;
+   
+}
+/* #singup_form:hover{
+    box-shadow: 0 0 15px 15px  rgba(255,250,250,0.8);
+} */
+input{
+    width: 80%;
+    padding:2%;
+    margin:10px;
+    border-radius:30px;
+    text-align: center;
+    transition: ease-in-out 0.5s;
+}
+/* input:hover , input:focus{
+    box-shadow: 0 0 15px 15px  rgba(221,160,221,0.9);
+} */
+input[type="submit"]{
+    width:40% auto;
+    font-size: larger;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius:30px;
+    background: none;
+    color: black;
+    border-color: white;
+}
+input[type="submit"]:hover{
+    background-color: white;
+    color:black;
+    border-color: black;
+    cursor: pointer;
+}
+.inner_form{
+    margin-top:40px;
+    font-size: 20px;
+    padding: 20px;
+}
+
+.inner_form p a{
+    text-decoration: none; 
+    color: blue;
+    transition: ease-in-out 0.5s;
+}
+/* .inner_form p a:hover{
+    color: rgb(255, 0, 55);
+} */
+.outer_div
+{
+    height: 440px;
+    width: 900px;
+    
+    margin-left: 300px;
+    margin-top: 200px;
+    position: relative;
+}
+.inner_div
+{
+    height: 440px;
+    width: 425px;
+    
+    
+    margin-right: 100px;
+    position: absolute;
+
+}

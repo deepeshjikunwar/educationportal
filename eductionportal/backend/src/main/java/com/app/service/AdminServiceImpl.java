@@ -17,7 +17,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public Admin authenticateAdmin(String email, String password) {
-		return adminRepo.findByEmailAndPassword(email, password)  ;
+		return adminRepo.findByEmailAndPassword(email, password);
 	}
 
 	@Override

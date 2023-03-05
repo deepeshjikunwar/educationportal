@@ -1,1 +1,10 @@
 /.metadata/
+Servers/.project
+Servers/VMware tc Server Developer Edition v4.1-config/jmxremote.access
+Servers/VMware tc Server Developer Edition v4.1-config/context.xml
+Servers/VMware tc Server Developer Edition v4.1-config/web.xml
+Servers/VMware tc Server Developer Edition v4.1-config/jmxremote.password
+Servers/VMware tc Server Developer Edition v4.1-config/server.xml
+Servers/VMware tc Server Developer Edition v4.1-config/catalina.policy
+Servers/VMware tc Server Developer Edition v4.1-config/catalina.properties
+Servers/.settings/org.eclipse.wst.server.core.prefs

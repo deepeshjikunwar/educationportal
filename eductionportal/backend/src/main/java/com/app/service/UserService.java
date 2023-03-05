@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.app.pojos.User;
 
-public interface IUserService {
+public interface UserService {
 	List<User> getAllUsers();
 	User addUser(User user);
 	User getDetails(Long userID);

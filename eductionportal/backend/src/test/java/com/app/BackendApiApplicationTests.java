@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.app.dao.UserRepository;
 import com.app.pojos.Role;
 import com.app.pojos.User;
-import com.app.service.IUserService;
+import com.app.service.UserService;
 
 @SpringBootTest
 class BackendApiApplicationTests {
@@ -19,7 +19,7 @@ class BackendApiApplicationTests {
 	@Autowired
 	private UserRepository userRepo;
 	@Autowired
-	private IUserService userService;
+	private UserService userService;
 	@Test
 	void contextLoads() {
 		List<User> allUsers = userService.getAllUsers();

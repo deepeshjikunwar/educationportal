@@ -12,7 +12,7 @@ import com.app.pojos.User;
 
 @Service
 @Transactional
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements UserService {
 //dependency: dao layer i/f
 	@Autowired
 	private UserRepository userRepo;

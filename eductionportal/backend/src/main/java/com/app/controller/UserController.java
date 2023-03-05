@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.dto.ErrorResponse;
 import com.app.dto.ResponseDTO;
 import com.app.pojos.User;
-import com.app.service.IUserService;
+import com.app.service.UserService;
 
 @RestController
 @RequestMapping("/users")
@@ -26,7 +26,7 @@ import com.app.service.IUserService;
 public class UserController {
 	//dependency: service layer i/f
 	@Autowired
-	private IUserService userService;
+	private UserService userService;
 
 	public UserController() {
 		System.out.println("in ctor"+ getClass().getName());

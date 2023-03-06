@@ -40,7 +40,7 @@ public class User extends BaseEntity {
 		course.addUsertoCourse(this);
 		return this;
 	}
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user",cascade=CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
 	private List<Visit> visits;
 }
 

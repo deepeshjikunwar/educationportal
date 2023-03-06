@@ -1,5 +1,7 @@
 package com.app.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import com.app.dto.AddCourse;
 import com.app.dto.AdminLogin;
 import com.app.dto.AdminSignup;
 import com.app.pojos.Admin;
+import com.app.pojos.User;
 import com.app.service.AdminService;
 
 @RestController

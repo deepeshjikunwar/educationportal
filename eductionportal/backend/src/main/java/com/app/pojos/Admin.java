@@ -1,7 +1,11 @@
 package com.app.pojos;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -26,5 +30,8 @@ public class Admin extends BaseEntity {
 	private String email;
 	@Column(length=20)
 	private String password;
+	
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+	private List<Course> courses;
 	
 }

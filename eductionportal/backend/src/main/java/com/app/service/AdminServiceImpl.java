@@ -1,12 +1,21 @@
 package com.app.service;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.app.dao.AdminRepository;
+import com.app.dao.ContentRepository;
+import com.app.dao.CourseRepository;
+import com.app.dto.AddContent;
+import com.app.dto.AddCourse;
 import com.app.dto.AdminSignup;
+import com.app.exception.EntityNotFound;
 import com.app.pojos.Admin;
+import com.app.pojos.Content;
+import com.app.pojos.Course;
 
 @Service
 @Transactional
@@ -14,6 +23,10 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	private AdminRepository adminRepo;
+	@Autowired
+	private CourseRepository courseRepo;
+	@Autowired
+	private ContentRepository contentRepo;
 
 	@Override
 	public Admin authenticateAdmin(String email, String password) {
@@ -30,4 +43,23 @@ public class AdminServiceImpl implements AdminService {
 		return adminRepo.save(admin);
 	}
 
+	@Override
+	public Course addCourse(AddCourse transientCourse) {
+		Course course = new Course();
+		course.setTitle(transientCourse.getTitle());
+		course.setStartDate(transientCourse.getStartDate());
+		course.setEndDate(transientCourse.getEndDate());
+		course.setCapacity(transientCourse.getCapacity());
+		return courseRepo.save(course);
+	}
+
+	@Override
+	public Content addContent(AddContent transientContent, Long courseId) {
+		Course existingCourse = courseRepo.findById(courseId).orElseThrow(()-> new EntityNotFound("No Such Course Exist with ID: " +courseId ));
+		Content content = new Content();
+		content.setContentName(transientContent.getContentName());
+		content.setLink(transientContent.getLink());
+		content.setCourse(existingCourse);
+		return contentRepo.save(content);
+	}
 }

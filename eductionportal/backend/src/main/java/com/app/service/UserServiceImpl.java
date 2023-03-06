@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.dao.CourseRepository;
 import com.app.dao.UserRepository;
 import com.app.dto.UserSignup;
+import com.app.exception.EntityNotFound;
 import com.app.exception.UserHandlingException;
+import com.app.pojos.Course;
 import com.app.pojos.User;
 
 @Service
@@ -17,6 +20,9 @@ public class UserServiceImpl implements UserService {
 //dependency: dao layer i/f
 	@Autowired
 	private UserRepository userRepo;
+	@Autowired
+	private CourseRepository courseRepo;
+	
 	@Override
 	public List<User> getAllUsers() {
 		//invoke dao's method
@@ -29,8 +35,8 @@ public class UserServiceImpl implements UserService {
 		return "User details deleted for ID =" + userId;
 	}
 	@Override
-	public User getDetails(Long userID) {
-		return userRepo.findById(userID).orElseThrow(()->new UserHandlingException("Invalid User ID"));
+	public User getDetails(Long userId) {
+		return userRepo.findById(userId).orElseThrow(()->new UserHandlingException("Invalid User ID"));
 	}
 	@Override
 	public User updateDetails(User detachedUser) {
@@ -48,5 +54,12 @@ public class UserServiceImpl implements UserService {
 		user.setEmail(transientUser.getEmail());
 		user.setPassword(transientUser.getPassword());
 		return userRepo.save(user);
+	}
+
+	@Override
+	public User enrollIntoCourse(Long userId,Long courseId) {
+		Course course = courseRepo.findById(courseId).orElseThrow(()-> new EntityNotFound("Course doesn't exist"));
+		User user = userRepo.findById(userId).orElseThrow(()-> new EntityNotFound("User doesn't exist"));
+		return user.enrollIntoCurrentCourse(course);
 	}	
 }

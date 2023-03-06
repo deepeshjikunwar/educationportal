@@ -20,10 +20,7 @@ public class User extends BaseEntity {
 	@Column(length=20)
 	private String lastName;
 	@Column(length=20, unique=true)
-	private String userName;
+	private String email;
 	private String password;
-	private int age;
-	@Enumerated
-	private Role role;
 }
 

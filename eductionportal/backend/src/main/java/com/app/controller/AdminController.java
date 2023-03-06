@@ -40,5 +40,4 @@ public class AdminController {
 	public ResponseEntity<?> signup(@RequestBody AdminSignup transientAdmin){
 		return ResponseEntity.status(HttpStatus.CREATED).body(adminService.addAdmin(transientAdmin));
 	}
-	
 }

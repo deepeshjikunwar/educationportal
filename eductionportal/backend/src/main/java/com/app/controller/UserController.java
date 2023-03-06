@@ -15,8 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.AdminLogin;
 import com.app.dto.ErrorResponse;
 import com.app.dto.ResponseDTO;
+import com.app.dto.UserLogin;
+import com.app.dto.UserSignup;
+import com.app.pojos.Admin;
 import com.app.pojos.User;
 import com.app.service.UserService;
 
@@ -31,28 +35,38 @@ public class UserController {
 	public UserController() {
 		System.out.println("in ctor"+ getClass().getName());
 	}
-
-	//add REST API endpoint : for getting all users
+	
+	@PostMapping("/login")
+	public ResponseEntity<?> login(@RequestBody UserLogin usercredentials){
+		User validUser = userService.authenticateUser(usercredentials.getEmail(),usercredentials.getPassword());
+		
+		if(validUser != null) {
+			return ResponseEntity.ok(validUser);
+		}
+		else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+		}
+	}
+	//REST API endpoint : for getting all users
 	@GetMapping
 	public List<User> fetchAllUser(){
 		System.out.println("in fetch all users");
 		return userService.getAllUsers();
 	}
 
-	//add REST API endpoint : for adding new user (create new resource)that returns to the frontend HTTP status code and user in response body
-	@PostMapping
-	public ResponseEntity<?> addNewUserDetails(@RequestBody User transientUser ) {
-		System.out.println("in add user" + transientUser);
+	//REST API endpoint : for adding new user (create new resource)that returns to the frontend HTTP status code and user in response body
+	@PostMapping("/signup")
+	public ResponseEntity<?> addUser(@RequestBody UserSignup transientUser ) {
 		//invoke service layer's method for saving user details
 		try {
-			return new ResponseEntity<>(userService.addUser(transientUser),HttpStatus.CREATED);	
+			return ResponseEntity.status(HttpStatus.CREATED).body(userService.addUser(transientUser));	
 		}catch(RuntimeException e) {
 			System.out.println("err in add" + e);
 			return new ResponseEntity<>(new ErrorResponse("Adding User Failed", e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	//add REST API endpoint : to delete a user by id
+	//REST API endpoint : to delete a user by id
 	@DeleteMapping("/{userId}")
 	public ResponseEntity<ResponseDTO> deleteUserDetails(@PathVariable Long userId)
 	{
@@ -62,7 +76,7 @@ public class UserController {
 		return ResponseEntity.ok(new ResponseDTO(userService.deleteUser(userId)));
 	}
 
-	//add REST API endpoint : to get a user by id
+	//REST API endpoint : to get a user by id
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getUserDetails(@PathVariable Long id){
 		System.out.println("in get user details" + id);
@@ -75,7 +89,7 @@ public class UserController {
 		}
 	}
 
-	//add REST API endpoint : to update a user by id
+	//REST API endpoint : to update a user by id
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateUserDetails(@RequestBody User detachedUser, @PathVariable Long id){
 		System.out.println("in update user" + detachedUser + " " + id);

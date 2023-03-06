@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.app.dao.UserRepository;
+import com.app.dto.UserSignup;
 import com.app.exception.UserHandlingException;
 import com.app.pojos.User;
 
@@ -21,10 +22,7 @@ public class UserServiceImpl implements UserService {
 		//invoke dao's method
 		return userRepo.findAll();
 	}
-	@Override
-	public User addUser(User user) {
-		return userRepo.save(user);
-	}
+	
 	@Override
 	public String deleteUser(Long userId) {
 		userRepo.deleteById(userId);
@@ -37,5 +35,18 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User updateDetails(User detachedUser) {
 		return userRepo.save(detachedUser);
+	}
+	@Override
+	public User authenticateUser(String email, String password) {
+		return userRepo.findByEmailAndPassword(email, password);
+	}
+	@Override
+	public User addUser(UserSignup transientUser) {
+		User user = new User();
+		user.setFirstName(transientUser.getFirstName());
+		user.setLastName(transientUser.getLastName());
+		user.setEmail(transientUser.getEmail());
+		user.setPassword(transientUser.getPassword());
+		return userRepo.save(user);
 	}	
 }

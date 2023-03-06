@@ -31,7 +31,7 @@ class BackendApiApplicationTests {
 	public void testSaveUser()throws Exception
 	{
 		//firstName,lastName,userName,age,role
-		User user = new User("Deepesh","Kunwar","djk","pass",27,Role.ADMIN);
+		User user = new User("Deepesh","Kunwar","djk","pass");
 		User persistentUser = userRepo.save(user);
 		assertEquals(2, persistentUser.getId());
 	}

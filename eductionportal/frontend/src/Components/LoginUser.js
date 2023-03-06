@@ -3,13 +3,13 @@ import '../CSS/Login.css'
 import TwoSvg from '../images/one.svg'
 import axios from '../Api/axios';
 import AuthContext from '../context/AuthProvider';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
+const LOGIN_URL = '/users/login';
 
+function LoginUser() {
 
-function Login() {
-  const LOGIN_URL = '/admin/login';
-  
   const navigate = useNavigate();
+
   const  { setAuth } = useContext(AuthContext);
   // setAuth({email:"abhi"});
   const [errMsg, setErrMsg] = useState('');
@@ -27,6 +27,11 @@ function Login() {
     console.log("response :"+JSON.stringify(response));
     //console.log(JSON.stringify(response));
     setAuth(response.data);
+
+    setEmail('')
+    setPassword('')
+      navigate('user_dashboard')
+
     // console.log(auth);
     } catch(err){
       if (!err) {
@@ -47,7 +52,7 @@ function Login() {
   </div>
 
   <form method="" id="singup_form" onSubmit={handleSubmit}>
-    <h1 style={{ marginTop: "20px", textTransform: "uppercase", fontWeight: "bold" }}>Admin Login</h1>
+    <h1 style={{ marginTop: "20px", textTransform: "uppercase", fontWeight: "bold" }}>User Login</h1>
     <div className="inner_form">
       <label htmlFor="email" className="label_form">
         Username or Email
@@ -65,7 +70,7 @@ function Login() {
       {errMsg}
       <p>
         Don't have account?
-        <button onClick={()=>navigate("/signup")}>Sign Up</button>
+        <Link to={"/signup_user"}>Sign Up</Link>
       </p>
 
     </div>
@@ -75,6 +80,6 @@ function Login() {
   )
 }
 
-export default Login
+export default LoginUser
 
 

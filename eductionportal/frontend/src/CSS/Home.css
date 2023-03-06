@@ -1,0 +1,32 @@
+.img-div
+{
+    height:550px;
+    width: 700px;
+    margin: auto;
+    
+}
+.content-div
+{
+    height:100px;
+    width: 100%;
+    background-color: skyblue;
+}
+div h1{
+    
+    color: white;
+    font-size: 30px;
+    font-family: 'Cursive';
+   
+}
+.btn
+{
+    background-color: skyblue;
+    color: white;
+    border: 2px solid black;
+    border-radius: 15px;
+    height: 50px;
+    width: 150px;
+    font-size: 30px;
+    margin-left: 50px;
+    margin-top: 20px;
+}

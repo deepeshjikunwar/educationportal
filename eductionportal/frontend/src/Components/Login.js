@@ -27,6 +27,9 @@ function Login() {
     console.log("response :"+JSON.stringify(response));
     //console.log(JSON.stringify(response));
     setAuth(response.data);
+    setEmail('')
+    setPassword('')
+    navigate('../admin_dashboard');
     // console.log(auth);
     } catch(err){
       if (!err) {
@@ -65,7 +68,7 @@ function Login() {
       {errMsg}
       <p>
         Don't have account?
-        <button onClick={()=>navigate("/signup")}>Sign Up</button>
+        <button onClick={()=>navigate("/signup_admin")}>Sign Up</button>
       </p>
 
     </div>

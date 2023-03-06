@@ -3,9 +3,12 @@ import '../CSS/SignUp.css'
 
 import axios from '../Api/axios';
 import AuthContext from '../context/AuthProvider';
+import { useNavigate } from 'react-router-dom';
 
 function SignupForm() {
   const LOGIN_URL = '/admin/signup';
+
+  const navigate = useNavigate(); 
 
   const  { setAuth } = useContext(AuthContext);
   const [errMsg, setErrMsg] = useState('');
@@ -26,6 +29,11 @@ function SignupForm() {
     console.log("response :"+JSON.stringify(response));
     //console.log(JSON.stringify(response));
     setAuth(response.data);
+    setFirstName('')
+    setLastName('')
+    setEmail('')
+    setPassword('')
+    navigate('signup_admin')
     // console.log(auth);
     } catch(err){
       if (!err) {

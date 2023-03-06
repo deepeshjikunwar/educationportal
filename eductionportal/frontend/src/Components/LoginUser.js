@@ -30,7 +30,7 @@ function LoginUser() {
 
     setEmail('')
     setPassword('')
-      navigate('user_dashboard')
+      navigate('../user_dashboard',{replace:true})
 
     // console.log(auth);
     } catch(err){

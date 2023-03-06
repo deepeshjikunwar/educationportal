@@ -9,6 +9,8 @@ import AuthContext from './context/AuthProvider';
 import Home from './Components/Home';
 import LoginUser from './Components/LoginUser';
 import SignupFormUser from './Components/SignupFormUser';
+import UserDashboard from './Components/UserDashboard';
+import EditStudent from './Components/EditStudent';
 
 function App() {
 
@@ -24,9 +26,11 @@ function App() {
 
         <Route path='/signup_user' element={<SignupFormUser/>} />
            {/* <Login /> */}
-        <Route path='/signup' element={<SignupForm />} />
+        <Route path='/signup_admin' element={<SignupForm />} />
         {/* <Route path='/course' element={<Course />} /> */}
-        <Route path='/dashboard' element={<AdminDashboard />} />
+        <Route path='/user_dashboard' element={<UserDashboard />} />
+        <Route path='/admin_dashboard' element={<AdminDashboard />} />
+        <Route path ='/edit_student/:id' element={<EditStudent />} />
         {/* <Route path='/editStudent' element={<AdminDashboard />} /> */}
       </Routes>
     </div>

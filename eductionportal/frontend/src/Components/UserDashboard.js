@@ -1,37 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import axios from '../Api/axios';
-import '../CSS/AdminDashboard.css'
-function AdminDashboard() {
+function UserDashboard() {
 
-  const USERS_URL = "users";
-
-  const navigate = useNavigate();
+    const navigate = useNavigate();
   // state to hold the list of students
   const [students, setStudents] = useState([
-  { id: 1, firstName: 'John', lastName: 'Doe', age: 20 },
-  { id: 2, firstName: 'Jane', lastName: 'Doe', age: 21 },
-  { id: 3, firstName: 'Bob', lastName: 'Smith', age: 22 },
+    { id: 1, firstName: 'John', lastName: 'Doe', age: 20 },
+    { id: 2, firstName: 'Jane', lastName: 'Doe', age: 21 },
+    { id: 3, firstName: 'Bob', lastName: 'Smith', age: 22 },
   ]);
-
-
-
-  const getData = async () => {
-
-  try {
-    const response = await axios.get(USERS_URL
-      );
-    console.log(response.data)
-    setStudents(response.data)
-  }catch(e){
-  }
-}
-
-useEffect(() => {
-  getData();
-}, []);
-
-
 
   // function to delete a student
   const handleDeleteStudent = (id) => {
@@ -42,13 +19,12 @@ useEffect(() => {
   // function to edit a student
   const handleEditStudent = (id) => {
     // implementation for editing a student
-    navigate(`/edit_student/${id}`)
   };
 
   return (
     <div className='container'>
-      <h1>Admin Dashboard</h1>
-      <table className='table'>
+      <h1>User Dashboard</h1>
+      {/* <table className='table'>
         <thead>
           <tr>
             <th>ID</th>
@@ -73,9 +49,9 @@ useEffect(() => {
           ))}
         </tbody>
       </table>
-      <button onClick={()=>{navigate("/editStudent")}}>Add Student</button>
+      <button onClick={()=>{navigate("/editStudent")}}>Add Student</button> */}
     </div>
   );
 }
 
-export default AdminDashboard;
+export default UserDashboard;

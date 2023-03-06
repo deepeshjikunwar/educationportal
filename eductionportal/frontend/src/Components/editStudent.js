@@ -1,13 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from '../Api/axios';
+function EditStudent() {
+  const USERS_URL = "users";
+  const { id } = useParams();
+  const [student, setStudent] = useState({});
+  // {firstName:"abhi",lastName:"kam",age:"34",email:"email"}
+  const[ firstName, setFirstName] = useState();
+  const[ lastName, setLastName] = useState();
+  const[ age, setAge] = useState();
+  const[ email, setEmail] = useState();
+  const[ password, setPassword] = useState();
 
-function AddStudentForm({ student }) {
+  const getData = async () => {
 
+    try {
+      const response = await axios.get(USERS_URL+"/"+id
+        );
+      // console.log(response.data)
+      setStudent(response.data)
+      console.log(student)
+      setFirstName(student.firstName)
+      setLastName(student.lastName)
+      setAge(student.age)
+      setEmail(student.email)
+      setPassword(student.password)
+    }catch(e){
+    }
+  }
+  
+  useEffect(() => {
+    getData();
+  }, []);
 
-  const[ firstName, setFirstName] = useState(student.firstName);
-  const[ lastName, setLastName] = useState(student.lastName);
-  const[ age, setAge] = useState(student.age);
-  const[ email, setEmail] = useState(student.email);
-  const[ password, setPassword] = useState(student.password);
 
 
   const handleSubmit = (event) => {
@@ -59,19 +84,9 @@ function AddStudentForm({ student }) {
           required
         />
       </label>
-      <label>
-        Password:
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={(e)=>{setPassword(e.target.value)}}
-          required
-        />
-      </label>
       <button type="submit">Apply Changes</button>
     </form>
   );
 }
 
-export default AddStudentForm;
+export default EditStudent;

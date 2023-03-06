@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,10 +39,15 @@ public class Course extends BaseEntity{
 	private List<Content> contents;
 
 	@ManyToMany(mappedBy = "enrolledCourses")
+	@JsonIgnore
 	private List<User> enrolledUsers;
 	
 	public void addUsertoCourse(User user) {
 		enrolledUsers.add(user);
 	}
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JsonIgnore
+	private Admin admin;
 
 }

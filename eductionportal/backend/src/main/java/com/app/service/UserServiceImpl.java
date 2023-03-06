@@ -39,8 +39,9 @@ public class UserServiceImpl implements UserService {
 		return userRepo.findById(userId).orElseThrow(()->new UserHandlingException("Invalid User ID"));
 	}
 	@Override
-	public User updateDetails(User detachedUser) {
-		return userRepo.save(detachedUser);
+	public String updateDetails(User existingUser,UserSignup transientUser) {
+	 userRepo.setUserInfoById(transientUser.getFirstName(), transientUser.getLastName(),transientUser.getEmail(),transientUser.getPassword(), existingUser.getId());
+	 return "User updated successfully";
 	}
 	@Override
 	public User authenticateUser(String email, String password) {

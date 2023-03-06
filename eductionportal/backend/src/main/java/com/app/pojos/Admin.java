@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -31,7 +32,14 @@ public class Admin extends BaseEntity {
 	@Column(length=20)
 	private String password;
 	
-	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy = "admin",cascade=CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
 	private List<Course> courses;
+	
+	public Course addCourse(Course course) {
+		courses.add(course);
+		course.setAdmin(this);
+		return course;
+		
+	}
 	
 }

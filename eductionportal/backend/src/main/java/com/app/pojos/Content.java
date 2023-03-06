@@ -38,7 +38,8 @@ public class Content extends BaseEntity {
 	@JsonIgnore
 	private Course course;
 	
-	@OneToMany(mappedBy = "content",cascade=CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy = "content",cascade=CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
+	@JsonIgnore
 	private List<Visit> visits;
 	
 }

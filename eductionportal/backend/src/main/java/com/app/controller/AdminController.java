@@ -1,6 +1,7 @@
 package com.app.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,7 +18,9 @@ import com.app.dto.AddContent;
 import com.app.dto.AddCourse;
 import com.app.dto.AdminLogin;
 import com.app.dto.AdminSignup;
+import com.app.exception.EntityNotFound;
 import com.app.pojos.Admin;
+import com.app.pojos.Course;
 import com.app.pojos.User;
 import com.app.service.AdminService;
 
@@ -31,11 +34,11 @@ public class AdminController {
 	public AdminController() {
 		System.out.println("in ctor"+ getClass().getName());
 	}
-	
+
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody AdminLogin admincredentials){
 		Admin validAdmin = adminService.authenticateAdmin(admincredentials.getEmail(),admincredentials.getPassword());
-		
+
 		if(validAdmin != null) {
 			return ResponseEntity.ok(validAdmin);
 		}
@@ -47,13 +50,19 @@ public class AdminController {
 	public ResponseEntity<?> signup(@RequestBody AdminSignup transientAdmin){
 		return ResponseEntity.status(HttpStatus.CREATED).body(adminService.addAdmin(transientAdmin));
 	}
-	@PostMapping("/addCourse")
-	public ResponseEntity<?> addCourse(@RequestBody AddCourse transientCourse){
-		return ResponseEntity.status(HttpStatus.CREATED).body(adminService.addCourse(transientCourse));
-		
+	@PostMapping("{adminId}/addCourse")
+	public ResponseEntity<?> addCourse(@RequestBody AddCourse transientCourse,@PathVariable Long adminId){
+		return ResponseEntity.status(HttpStatus.CREATED).body(adminService.addCourse(transientCourse, adminId));
+
 	}
 	@PostMapping("/addContent/{courseId}")
 	public ResponseEntity<?> addContent(@RequestBody AddContent transientContent,@PathVariable Long courseId){
 		return ResponseEntity.status(HttpStatus.CREATED).body(adminService.addContent(transientContent,courseId));
 	}
+
+	@GetMapping("/{adminId}/courses")
+	public ResponseEntity<?> getCoursesByAdminId(@PathVariable Long adminId) {
+	    return  ResponseEntity.status(HttpStatus.CREATED).body(adminService.findAllCourseByAdminId(adminId));
+	}
+
 }

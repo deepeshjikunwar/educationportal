@@ -1,6 +1,8 @@
 package com.app.service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,13 +46,14 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Course addCourse(AddCourse transientCourse) {
+	public Course addCourse(AddCourse transientCourse, Long adminId) {
 		Course course = new Course();
 		course.setTitle(transientCourse.getTitle());
 		course.setStartDate(transientCourse.getStartDate());
 		course.setEndDate(transientCourse.getEndDate());
 		course.setCapacity(transientCourse.getCapacity());
-		return courseRepo.save(course);
+		Admin admin = adminRepo.findById(adminId).orElseThrow(()-> new EntityNotFound("Entity Not Found"));
+		return admin.addCourse(course);
 	}
 
 	@Override
@@ -61,5 +64,15 @@ public class AdminServiceImpl implements AdminService {
 		content.setLink(transientContent.getLink());
 		content.setCourse(existingCourse);
 		return contentRepo.save(content);
+	}
+
+	@Override
+	public Optional<Admin> findById(Long adminId) {
+		return adminRepo.findById(adminId);
+	}
+
+	@Override
+	public List<Course> findAllCourseByAdminId(Long adminId) {
+		return courseRepo.findAllCoursesByAdminId(adminId);
 	}
 }

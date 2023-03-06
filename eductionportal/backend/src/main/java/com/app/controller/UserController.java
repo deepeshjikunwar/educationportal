@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.AdminLogin;
@@ -20,9 +21,12 @@ import com.app.dto.ErrorResponse;
 import com.app.dto.ResponseDTO;
 import com.app.dto.UserLogin;
 import com.app.dto.UserSignup;
+import com.app.dto.VisitDTO;
 import com.app.pojos.Admin;
 import com.app.pojos.User;
+import com.app.pojos.Visit;
 import com.app.service.UserService;
+import com.app.service.VisitService;
 
 @RestController
 @RequestMapping("/users")
@@ -31,15 +35,17 @@ public class UserController {
 	//dependency: service layer i/f
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private VisitService visitService;
 
 	public UserController() {
 		System.out.println("in ctor"+ getClass().getName());
 	}
-	
+
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody UserLogin usercredentials){
 		User validUser = userService.authenticateUser(usercredentials.getEmail(),usercredentials.getPassword());
-		
+
 		if(validUser != null) {
 			return ResponseEntity.ok(validUser);
 		}
@@ -76,30 +82,30 @@ public class UserController {
 		return ResponseEntity.ok(new ResponseDTO(userService.deleteUser(userId)));
 	}
 
-	//REST API endpoint : to get a user by id
-	@GetMapping("/{id}")
-	public ResponseEntity<?> getUserDetails(@PathVariable Long id){
-		System.out.println("in get user details" + id);
+	//add REST API endpoint : to get a user by id
+	@GetMapping("/{userId}")
+	public ResponseEntity<?> getUserDetails(@PathVariable Long userId){
+		System.out.println("in get user details" + userId);
 		//invoke service method to get user details
 		try {
-			return ResponseEntity.ok(userService.getDetails(id));
+			return ResponseEntity.ok(userService.getDetails(userId));
 		}catch(RuntimeException e) {
 			System.out.println("err in get" + e);
 			return new ResponseEntity<>(new ErrorResponse("Fetching User Details Failed", e.getMessage()),HttpStatus.BAD_REQUEST);
 		}
 	}
 
-	//REST API endpoint : to update a user by id
-	@PutMapping("/{id}")
-	public ResponseEntity<?> updateUserDetails(@RequestBody User detachedUser, @PathVariable Long id){
-		System.out.println("in update user" + detachedUser + " " + id);
+	//add REST API endpoint : to update a user by id
+	@PutMapping("/{userId}")
+	public ResponseEntity<?> updateUserDetails(@RequestBody User detachedUser, @PathVariable Long userId){
+		System.out.println("in update user" + detachedUser + " " + userId);
 		try {
-		//invoke service layer method for user details updation
-		User existingUser = userService.getDetails(id);
-		//valid user, invoke setters to update the state
-		//existingUser : user details fetched from DB(stale)
-		//detachedUser : updated user details from frontend
-		return ResponseEntity.ok(userService.updateDetails(detachedUser));
+			//invoke service layer method for user details updation
+			User existingUser = userService.getDetails(userId);
+			//valid user, invoke setters to update the state
+			//existingUser : user details fetched from DB(stale)
+			//detachedUser : updated user details from frontend
+			return ResponseEntity.ok(userService.updateDetails(detachedUser));
 		}catch(RuntimeException e) {
 			System.out.println("err in get" + e);
 			return new ResponseEntity<>(new ErrorResponse("Fetchin user details failed", e.getMessage()),HttpStatus.BAD_REQUEST);
@@ -107,5 +113,17 @@ public class UserController {
 	}
 
 
+	@GetMapping("{userId}/enroll/{courseId}") 
+	public ResponseEntity<?> enrollIntoCourse(@PathVariable Long userId, @PathVariable Long courseId){
+		return  ResponseEntity.status(HttpStatus.CREATED).body(userService.enrollIntoCourse(userId,courseId));
 
+	}
+
+	@PostMapping("/{userId}/{contentId}")
+	public ResponseEntity<?> markContentAsVisited(@PathVariable Long userId, @PathVariable Long contentId, @RequestBody VisitDTO visit) {
+		boolean isVisited = visit.isVisited();
+		System.out.println(isVisited);
+		return  ResponseEntity.status(HttpStatus.CREATED).body(visitService.markContentAsVisited(userId, contentId, isVisited));
+	}
+	
 }

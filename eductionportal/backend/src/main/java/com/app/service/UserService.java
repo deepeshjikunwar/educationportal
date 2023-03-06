@@ -10,8 +10,10 @@ public interface UserService {
 	User addUser(UserSignup transientAdmin);
 	
 	List<User> getAllUsers();
-	User getDetails(Long userID);
+	User getDetails(Long userId);
 	String deleteUser(Long userId);
 	User updateDetails(User detachedUser);
+	
+	User enrollIntoCourse(Long userId,Long courseId);
 	
 }

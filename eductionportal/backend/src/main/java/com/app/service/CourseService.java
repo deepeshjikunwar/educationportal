@@ -1,5 +1,9 @@
 package com.app.service;
 
-public interface CourseService {
+import java.util.List;
 
+import com.app.pojos.Course;
+
+public interface CourseService {
+public List<Course> getAllCourses();
 }

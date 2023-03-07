@@ -6,5 +6,5 @@ import com.app.pojos.Admin;
 import com.app.pojos.Visit;
 
 public interface VisitRepository extends JpaRepository<Visit,Long> {
-	Visit findByUserIdAndContentId(Long userId, Long contentId);
+	Visit findByUserIdAndContentId(Long user, Long content);
 }

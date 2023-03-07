@@ -16,17 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dao.ContentRepository;
 import com.app.dto.AdminLogin;
 import com.app.dto.ErrorResponse;
 import com.app.dto.ResponseDTO;
 import com.app.dto.UserLogin;
 import com.app.dto.UserSignup;
-import com.app.dto.VisitDTO;
 import com.app.pojos.Admin;
 import com.app.pojos.User;
 import com.app.pojos.Visit;
+import com.app.service.CourseService;
 import com.app.service.UserService;
 import com.app.service.VisitService;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/users")
@@ -37,6 +40,10 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private VisitService visitService;
+	@Autowired
+	private ObjectMapper objectMapper;
+	@Autowired
+	private CourseService courseService;
 
 	public UserController() {
 		System.out.println("in ctor"+ getClass().getName());
@@ -133,10 +140,15 @@ public class UserController {
 
 	//method for user to mark a topic as completed
 	@PostMapping("/{userId}/{contentId}")
-	public ResponseEntity<?> markContentAsVisited(@PathVariable Long userId, @PathVariable Long contentId, @RequestBody VisitDTO visit) {
-		boolean isVisited = visit.isVisited();
-		System.out.println(isVisited);
+	public ResponseEntity<?> markContentAsVisited(@PathVariable Long userId, @PathVariable Long contentId, @RequestBody JsonNode requestBody) {
+		boolean isVisited = requestBody.get("isVisited").asBoolean();
+		System.out.println("in mark topic isVisited:"+ isVisited);
 		return  ResponseEntity.status(HttpStatus.CREATED).body(visitService.markContentAsVisited(userId, contentId, isVisited));
+	}
+	@GetMapping("/allCourses")
+	public ResponseEntity<?> getAllCourses(){
+		return  ResponseEntity.status(HttpStatus.OK).body(courseService.getAllCourses());
+
 	}
 	
 	

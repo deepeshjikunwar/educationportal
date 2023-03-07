@@ -35,12 +35,13 @@ public class User extends BaseEntity {
 	@JsonIgnore
 	private List<Course> enrolledCourses;
 	
+	@OneToMany(mappedBy = "user",cascade=CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
+	private List<Visit> visits;
+	
 	public User enrollIntoCurrentCourse(Course course) {
 		enrolledCourses.add(course);
 		course.addUsertoCourse(this);
 		return this;
 	}
-	@OneToMany(mappedBy = "user",cascade=CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
-	private List<Visit> visits;
 }
 

@@ -96,34 +96,48 @@ public class UserController {
 	}
 
 	//add REST API endpoint : to update a user by id
+//	@PutMapping("/{userId}")
+//	public ResponseEntity<?> updateUserDetails(@RequestBody User detachedUser, @PathVariable Long userId){
+//		System.out.println("in update user" + detachedUser + " " + userId);
+//		try {
+//			//invoke service layer method for user details updation
+//			User existingUser = userService.getDetails(userId);
+//			//valid user, invoke setters to update the state
+//			//existingUser : user details fetched from DB(stale)
+//			//detachedUser : updated user details from frontend
+//			return ResponseEntity.ok(userService.updateDetails(detachedUser));
+//		}catch(RuntimeException e) {
+//			System.out.println("err in get" + e);
+//			return new ResponseEntity<>(new ErrorResponse("Fetchin user details failed", e.getMessage()),HttpStatus.BAD_REQUEST);
+//		}
+//	}
 	@PutMapping("/{userId}")
-	public ResponseEntity<?> updateUserDetails(@RequestBody User detachedUser, @PathVariable Long userId){
-		System.out.println("in update user" + detachedUser + " " + userId);
+	public ResponseEntity<?> updateUser(@RequestBody UserSignup transientUser,@PathVariable Long userId) {
+		//invoke service layer's method for saving user details
 		try {
-			//invoke service layer method for user details updation
 			User existingUser = userService.getDetails(userId);
-			//valid user, invoke setters to update the state
-			//existingUser : user details fetched from DB(stale)
-			//detachedUser : updated user details from frontend
-			return ResponseEntity.ok(userService.updateDetails(detachedUser));
+			return ResponseEntity.status(HttpStatus.CREATED).body(userService.updateDetails(existingUser,transientUser));	
 		}catch(RuntimeException e) {
-			System.out.println("err in get" + e);
-			return new ResponseEntity<>(new ErrorResponse("Fetchin user details failed", e.getMessage()),HttpStatus.BAD_REQUEST);
+			System.out.println("err in add" + e);
+			return new ResponseEntity<>(new ErrorResponse("Adding User Failed", e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 
+	//method for user to enroll into a course
 	@GetMapping("{userId}/enroll/{courseId}") 
 	public ResponseEntity<?> enrollIntoCourse(@PathVariable Long userId, @PathVariable Long courseId){
 		return  ResponseEntity.status(HttpStatus.CREATED).body(userService.enrollIntoCourse(userId,courseId));
 
 	}
 
+	//method for user to mark a topic as completed
 	@PostMapping("/{userId}/{contentId}")
 	public ResponseEntity<?> markContentAsVisited(@PathVariable Long userId, @PathVariable Long contentId, @RequestBody VisitDTO visit) {
 		boolean isVisited = visit.isVisited();
 		System.out.println(isVisited);
 		return  ResponseEntity.status(HttpStatus.CREATED).body(visitService.markContentAsVisited(userId, contentId, isVisited));
 	}
+	
 	
 }

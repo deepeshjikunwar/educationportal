@@ -12,7 +12,7 @@ public interface UserService {
 	List<User> getAllUsers();
 	User getDetails(Long userId);
 	String deleteUser(Long userId);
-	User updateDetails(User detachedUser);
+	String updateDetails(User existingUserUser,UserSignup transientUser);
 	
 	User enrollIntoCourse(Long userId,Long courseId);
 	

@@ -6,7 +6,7 @@ import AuthContext from '../context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
 function SignupFormUser() {
-  const LOGIN_URL = '/admin/user';
+  const LOGIN_URL = '/users/signup';
 
   const navigate = useNavigate();
 
@@ -26,14 +26,15 @@ function SignupFormUser() {
       const response = await axios.post(LOGIN_URL,
         { firstName, lastName, email, password}
     );
-    console.log("response :"+JSON.stringify(response));
+    console.log("Signup FOrm user - response :"+JSON.stringify(response));
     //console.log(JSON.stringify(response));
     setAuth(response.data);
     setFirstName('')
     setLastName('')
     setEmail('')
     setPassword('')
-    navigate('signup_admin')
+    setAuth(null)
+    navigate('../login_user')
     // console.log(auth);
     } catch(err){
       if (!err) {

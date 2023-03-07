@@ -11,11 +11,18 @@ import LoginUser from './Components/LoginUser';
 import SignupFormUser from './Components/SignupFormUser';
 import UserDashboard from './Components/UserDashboard';
 import EditStudent from './Components/EditStudent';
+import Footer from './Components/Footer';
+import {ToastContainer, toast } from 'react-toastify';
+
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+  // toast.configure();
 
-  const{auth} = useContext(AuthContext);
-
+  const{auth, setTastFun, toastFun} = useContext(AuthContext);
+  // setToastFun()
+  // toast('hello')
   return (
     <div className="App">
       <Header />
@@ -33,6 +40,8 @@ function App() {
         <Route path ='/edit_student/:id' element={<EditStudent />} />
         {/* <Route path='/editStudent' element={<AdminDashboard />} /> */}
       </Routes>
+      <Footer />
+      <ToastContainer></ToastContainer>
     </div>
   );
 }

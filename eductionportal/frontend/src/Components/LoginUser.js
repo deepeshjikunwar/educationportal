@@ -4,13 +4,17 @@ import TwoSvg from '../images/one.svg'
 import axios from '../Api/axios';
 import AuthContext from '../context/AuthProvider';
 import { Link, useNavigate } from 'react-router-dom';
-const LOGIN_URL = '/users/login';
+import { toast } from 'react-toastify';
+// import '../../node_modules/react-toastify/dist/RastToastify.css';
+
+
 
 function LoginUser() {
+  const LOGIN_URL = '/users/login';
 
   const navigate = useNavigate();
 
-  const  { setAuth } = useContext(AuthContext);
+  const  { auth,setAuth } = useContext(AuthContext);
   // setAuth({email:"abhi"});
   const [errMsg, setErrMsg] = useState('');
 
@@ -30,17 +34,25 @@ function LoginUser() {
 
     setEmail('')
     setPassword('')
-      navigate('../user_dashboard',{replace:true})
+    // toast.success('Succesfullly Logged In : '+auth.firstName,{
+    //   position:toast.POSITION.TOP_RIGHT, autoClose:2000
+    // });
+      toast("Succesfully Logged In",{position:"top-right",autoClose:2000})
+    navigate('../user_dashboard',{replace:true})
 
     // console.log(auth);
     } catch(err){
-      if (!err) {
-        setErrMsg('No Server Response');
-      } else if (err === 401) {
-        setErrMsg('Unauthorized');
-        } else {
-        // setErrMsg(err);
-        console.log(err);
+      // if (!err) {
+      //   setErrMsg('No Server Response');
+      // } else if (err === 401) {
+      //   setErrMsg('Unauthorized');
+      //   } else {
+      //   // setErrMsg(err);
+      //   // console.log(err);
+      // }
+      if(err.code === "ERR_NETWORK"){
+        toast("Server Not Responding Logged In",{position:"top-right",autoClose:2000})
+        navigate('../')
       }
     }
   }

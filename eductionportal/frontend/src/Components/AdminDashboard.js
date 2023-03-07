@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from '../Api/axios';
 import '../CSS/AdminDashboard.css'
+// import Course from './Course';
 function AdminDashboard() {
 
   const USERS_URL = "users";
@@ -9,9 +10,9 @@ function AdminDashboard() {
   const navigate = useNavigate();
   // state to hold the list of students
   const [students, setStudents] = useState([
-  { id: 1, firstName: 'John', lastName: 'Doe', age: 20 },
-  { id: 2, firstName: 'Jane', lastName: 'Doe', age: 21 },
-  { id: 3, firstName: 'Bob', lastName: 'Smith', age: 22 },
+  { id: 1, firstName: 'John', lastName: 'Doe', email: 20 },
+  { id: 2, firstName: 'Jane', lastName: 'Doe', email: 21 },
+  { id: 3, firstName: 'Bob', lastName: 'Smith', email: 22 },
   ]);
 
 
@@ -54,7 +55,7 @@ useEffect(() => {
             <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Age</th>
+            <th>Email</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -64,7 +65,7 @@ useEffect(() => {
               <td>{student.id}</td>
               <td>{student.firstName}</td>
               <td>{student.lastName}</td>
-              <td>{student.age}</td>
+              <td>{student.email}</td>
               <td>
                 <button onClick={() => handleEditStudent(student.id)}>Edit</button>
                 <button onClick={() => handleDeleteStudent(student.id)}>Delete</button>

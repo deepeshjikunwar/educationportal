@@ -2,9 +2,16 @@ import '../CSS/Home.css'
 import  download from '../images/download.jpg'
 import pic from '../images/pic.svg'
 import { useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
+import AuthContext from '../context/AuthProvider'
 const Home=()=>{
-
+    const {auth} = useContext(AuthContext);
     const navigate = useNavigate();
+
+    if(!auth){
+        console.log(auth);
+    }
+    console.log("In Home : "+auth);
 
 return(
     <>

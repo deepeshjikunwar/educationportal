@@ -7,7 +7,7 @@ function Header() {
 
     const {auth} = useContext(AuthContext);
 
-    console.log(auth);
+    console.log("In header : "+JSON.stringify(auth));
 
   return (
     <>
@@ -32,7 +32,7 @@ function Header() {
             <Link to={'/contact'}>Contact</Link>
         </li>
         <li>
-            <Link to={'/service'}>Service</Link>
+            <Link to={'/service'}> Service</Link>
         </li>
     </ul>
 
@@ -43,6 +43,7 @@ function Header() {
         <li><Link href=""><FaFacebookSquare /></Link></li>
         <li><Link href=""><FaInstagramSquare /></Link></li>
         <li><Link href=""><FaYoutubeSquare /></Link></li>
+        <li>{auth? auth.firstName : null}</li>
     </ul>
 
     </div>

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import axios from '../Api/axios';
 import '../CSS/AdminDashboard.css'
-// import Course from './Course';
+import CourseForm from './CourseForm';
+import CourseBox from './CourseBox';
+import Sidebar from './Sidebar'
 function AdminDashboard() {
 
   const USERS_URL = "users";
@@ -48,35 +50,17 @@ useEffect(() => {
 
   return (
     <div className='container'>
-      <h1>Admin Dashboard</h1>
-      <table className='table'>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {students.map((student) => (
-            <tr key={student.id}>
-              <td>{student.id}</td>
-              <td>{student.firstName}</td>
-              <td>{student.lastName}</td>
-              <td>{student.email}</td>
-              <td>
-                <button onClick={() => handleEditStudent(student.id)}>Edit</button>
-                <button onClick={() => handleDeleteStudent(student.id)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+     <h1>Admin Dashboard</h1>
+        {/* <SideBar /> */}
+        <Sidebar />
+        <Outlet />
+
+
+      
       <button onClick={()=>{navigate("/editStudent")}}>Add Student</button>
+      <button onClick={()=>{navigate("/courses")}}>Add Course</button>
     </div>
   );
-}
+};
 
 export default AdminDashboard;

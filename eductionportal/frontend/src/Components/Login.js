@@ -4,6 +4,7 @@ import TwoSvg from '../images/one.svg'
 import axios from '../Api/axios';
 import AuthContext from '../context/AuthProvider';
 import { useNavigate } from "react-router-dom";
+import {toast} from 'react-toastify'
 
 
 function Login() {
@@ -32,13 +33,9 @@ function Login() {
     navigate('../admin_dashboard');
     // console.log(auth);
     } catch(err){
-      if (!err) {
-        setErrMsg('No Server Response');
-      } else if (err === 401) {
-        setErrMsg('Unauthorized');
-        } else {
-        // setErrMsg(err);
-        console.log(err);
+      if(err.code === "ERR_NETWORK"){
+        toast("Server Not Responding Logged In",{position:"top-right",autoClose:2000})
+        navigate('../')
       }
     }
   }

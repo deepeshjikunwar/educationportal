@@ -1,0 +1,47 @@
+
+.course-container {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.course-title {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.course-description {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.students-list {
+  margin-top: 20px;
+}
+
+.students-list-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.students-list-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.student {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.student-name {
+  font-size: 18px;
+}
+
+.student-age {
+  font-size: 16px;
+  color: #888;
+}

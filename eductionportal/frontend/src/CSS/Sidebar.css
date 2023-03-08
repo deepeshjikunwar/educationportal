@@ -1,0 +1,20 @@
+.div-one
+{
+    height:620px;
+    width:400px;
+    background-color:skyblue;
+    float:left;
+   
+    margin-left:50px;
+    
+
+}
+
+button
+{
+    margin-top:70px;
+    width:100px;
+    height:70px;
+    background-color: black;
+    color:white;
+}

@@ -25,6 +25,7 @@ import com.app.dto.UserSignup;
 import com.app.pojos.Admin;
 import com.app.pojos.User;
 import com.app.pojos.Visit;
+import com.app.service.AssignmentService;
 import com.app.service.CourseService;
 import com.app.service.UserService;
 import com.app.service.VisitService;
@@ -44,6 +45,8 @@ public class UserController {
 	private ObjectMapper objectMapper;
 	@Autowired
 	private CourseService courseService;
+	@Autowired
+	private AssignmentService assignmentService;
 
 	public UserController() {
 		System.out.println("in ctor"+ getClass().getName());
@@ -145,10 +148,16 @@ public class UserController {
 		System.out.println("in mark topic isVisited:"+ isVisited);
 		return  ResponseEntity.status(HttpStatus.CREATED).body(visitService.markContentAsVisited(userId, contentId, isVisited));
 	}
+	//method to get all available courses
 	@GetMapping("/allCourses")
 	public ResponseEntity<?> getAllCourses(){
 		return  ResponseEntity.status(HttpStatus.OK).body(courseService.getAllCourses());
-
+	}
+	
+	//method to get all assignment by courseId
+	@GetMapping("/courses/{courseId}/getAssignment")
+	public ResponseEntity<?> getAllAssignment(@PathVariable Long courseId){
+		return ResponseEntity.status(HttpStatus.OK).body(assignmentService.getAllAssignmentsByCourseId(courseId));
 	}
 	
 	

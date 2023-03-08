@@ -19,11 +19,13 @@ import com.app.dto.AddCourse;
 import com.app.dto.AdminLogin;
 import com.app.dto.AdminSignup;
 import com.app.dto.UserDTO;
+import com.app.dto.AssignmentDTO;
 import com.app.exception.EntityNotFound;
 import com.app.pojos.Admin;
 import com.app.pojos.Course;
 import com.app.pojos.User;
 import com.app.service.AdminService;
+import com.app.service.AssignmentService;
 
 @RestController
 @RequestMapping("/admin")
@@ -31,6 +33,9 @@ import com.app.service.AdminService;
 public class AdminController {
 	@Autowired
 	private AdminService adminService;
+	@Autowired
+	private AssignmentService assignmentService;
+	
 
 	public AdminController() {
 		System.out.println("in ctor"+ getClass().getName());
@@ -78,7 +83,14 @@ public class AdminController {
 	//method to get a course by Id
 	@GetMapping("/course/{courseId}")
 	public ResponseEntity<?> getCourseById(@PathVariable Long courseId){
-		return ResponseEntity.status(HttpStatus.FOUND).body(adminService.findCourseByCourseId(courseId));
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(adminService.findCourseByCourseId(courseId));
 	}
+	
+	//method to create assignment
+	@PostMapping("/course/{courseId}/addAssignment")
+	public ResponseEntity<?> createAssignmentByCourseId(@RequestBody AssignmentDTO transientAssignment,@PathVariable Long courseId){
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(assignmentService.addAssignmentByCourseId(transientAssignment,courseId));
+	}
+	
 
 }

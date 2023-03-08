@@ -13,6 +13,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -35,8 +38,15 @@ public class Course extends BaseEntity{
 	private LocalDate endDate;
 	private int capacity;
 
-	@OneToMany(mappedBy = "course",cascade=CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "course",cascade=CascadeType.ALL,orphanRemoval = true)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<Content> contents;
+	
+	public Content addContentToCourse(Content content) {
+		contents.add(content);
+	    content.setCourse(this);
+	    return content;
+	}
 
 	@ManyToMany(mappedBy = "enrolledCourses")
 	@JsonIgnore
@@ -50,7 +60,13 @@ public class Course extends BaseEntity{
 	@JsonIgnore
 	private Admin admin;
 	
-//	@OneToMany(mappedBy = "course",cascade=CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
-//	private List<Assignment> assignments;
+	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Assignment> assignments;
 
+	public Assignment addAssignmentToCourse(Assignment assignment) {
+	    assignments.add(assignment);
+	    assignment.setCourse(this);
+	    return assignment;
+	}
+	
 }

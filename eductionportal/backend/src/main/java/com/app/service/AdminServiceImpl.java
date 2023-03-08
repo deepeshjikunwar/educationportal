@@ -72,8 +72,7 @@ public class AdminServiceImpl implements AdminService {
 		Content content = new Content();
 		content.setContentName(transientContent.getContentName());
 		content.setLink(transientContent.getLink());
-		content.setCourse(existingCourse);
-		return contentRepo.save(content);
+		return existingCourse.addContentToCourse(content);
 	}
 
 	@Override

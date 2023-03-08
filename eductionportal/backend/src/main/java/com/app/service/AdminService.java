@@ -8,6 +8,7 @@ import com.app.dto.AddCourse;
 import com.app.dto.AdminSignup;
 import com.app.dto.UserDTO;
 import com.app.pojos.Admin;
+import com.app.pojos.Assignment;
 import com.app.pojos.Content;
 import com.app.pojos.Course;
 
@@ -20,4 +21,5 @@ Optional<Admin> findById(Long adminId);
 List<Course> findAllCourseByAdminId(Long adminId);
 List<UserDTO> getUsersEnrolledInCourseAddedByAdmin(Long adminId, Long courseId);
 Course findCourseByCourseId(Long courseId);
+
 }

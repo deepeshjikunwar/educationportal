@@ -34,7 +34,7 @@ public class Admin extends BaseEntity {
 	
 	@OneToMany(mappedBy = "admin",cascade=CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
 	private List<Course> courses;
-	
+		
 	public Course addCourse(Course course) {
 		courses.add(course);
 		course.setAdmin(this);

@@ -1,9 +1,11 @@
 import React, { useState ,useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from '../Api/axios';
+import '../CSS/Login.css'
 function EditStudent() {
-  const USERS_URL = "/users/";
   const { id } = useParams();
+  const navigate = useNavigate();
+  const USERS_URL = "/users/"+id;
   console.log("ID ------- "+id);
   const [student, setStudent] = useState(null);
   // {firstName:"abhi",lastName:"kam",age:"34",email:"email"}
@@ -15,67 +17,92 @@ function EditStudent() {
   const getData = async () => {
 
     try {
-      const response = await axios.get(USERS_URL+id
-        );
+      console.log("In TRY of GEWT DATA : "+USERS_URL);
+      const response = await axios.get(USERS_URL);
       // console.log(response.data)
+      console.log("Student In Edit : "+JSON.stringify(response.data))
       setStudent(response.data)
-      console.log("Student In Edit : "+JSON.stringify(student))
-      setFirstName(student.firstName)
-      setLastName(student.lastName)
-      setEmail(student.email)
-      setPassword(student.password)
+      // setFirstName(student.firstName)
+      // setLastName(student.lastName)
+      // setEmail(student.email)
+      // console.log("Fi Name :"+student?.firstName);
+      
     }catch(e){
       console.log("In Error of Edit Student : "+e);
     }
   }
   
   useEffect(() => {
+    // console.log("Student : "+student);
     if(student === null || student === undefined) {getData()};
   });
 
 
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
+    
     console.log("Edited in Edit.js :"+firstName)
+    
+    try {
+      const response = await axios.put(USERS_URL, {
+        firstName, lastName, email
+      }
+      );
+      // console.log(response.data)
+      setStudent(response.data)
+      navigate('../students')
+      console.log("Student In Edit : "+JSON.stringify(student))
+    }catch(e){
+      console.log("In Error of Edit Student : "+e);
+    }
 
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Add Student</h2>
+    <form className='login-form' onSubmit={handleSubmit}>
+      <h2 className='login-form-item login-form-heading' >Edit Student</h2>
+      <div className="login-form-item">
+
       <label>
         First Name:
+        </label>
         <input
           type="text"
-          name="firstName"
           value={firstName}
           onChange={(e)=>{setFirstName(e.target.value)}}
+          placeholder={student?.firstName}
           required
-        />
-      </label>
+          />
+          </div>
+
+          <div className="login-form-item">
+
       <label>
         Last Name:
+        </label>
         <input
           type="text"
-          name="lastName"
           value={lastName}
           onChange={(e)=>{setLastName(e.target.value)}}
+          placeholder={student?.lastName}
           required
-        />
-      </label>
+          />
+          </div>
+          <div className="login-form-item">
+
       <label>
         Email:
+        </label>
         <input
           type="email"
-          name="email"
           value={email}
           onChange={(e)=>{setEmail(e.target.value)}}
+          placeholder={student?.email}
           required
-        />
-      </label>
-      <button type="submit">Apply Changes</button>
+          />
+          </div>
+      <button className='login-form-item login-form-submit-edit' type="submit">Apply Changes</button>
     </form>
   );
 }

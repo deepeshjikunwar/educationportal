@@ -9,8 +9,8 @@ function Sidebar(){
    
     <button className='sidebar-btns' onClick={()=>{navigate('students')}}>Student List</button><br />
     <button className='sidebar-btns' onClick={()=>{navigate('courses')}}>Course List</button><br />
-    <button className='sidebar-btns' onClick={() => { navigate("/editStudent") }} >Add Student</button>
-    <button className='sidebar-btns' onClick={() => { navigate("/courses") }}>Add Course</button>
+    <button className='sidebar-btns'  >Add Student</button>
+    <button className='sidebar-btns' onClick={() => { navigate("addCourse") }}>Add Course</button>
     </div>
     
     )

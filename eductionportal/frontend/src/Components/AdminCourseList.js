@@ -1,10 +1,22 @@
-import React from 'react'
+import React,{useContext, useEffect} from 'react'
 import CourseBox from './CourseBox'
 import '../CSS/AdminCourseList.css'
 import { useNavigate } from 'react-router-dom'
+import AuthContext from '../context/AuthProvider';
+import { toast } from 'react-toastify';
 function AdminCourseList({ courses }) {
     // let courses = [32,333];
+    const { auth } = useContext(AuthContext);
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if(auth === null || auth === undefined) {
+            toast.info("Not Authorized Login First",{autoClose:200});
+            navigate('../');
+          }
+    }, [])
+    
+
     // console.log("In Admin Course List : " + JSON.stringify(courses))
     return (
         <div className='admin-course-list'>

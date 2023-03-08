@@ -14,11 +14,11 @@
 }
 .dashboard-btns{
     /* background-color: blueviolet; */
-    flex-grow: 1;
+    width: 15%;
 }
 .dashboard-content{
     background-color: aqua;
-    flex-grow: 9;
+    width: 85%;
 }
 .dashboard-content-btns{
     bottom: 0;

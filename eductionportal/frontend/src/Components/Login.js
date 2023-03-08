@@ -14,7 +14,7 @@ function Login() {
   const LOGIN_URL = isAdmin ? '/admin/login' : '/users/login';
 
   const navigate = useNavigate();
-  const { setAuth } = useContext(AuthContext);
+  const { auth,setAuth } = useContext(AuthContext);
   // setAuth({email:"abhi"});
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -30,16 +30,22 @@ function Login() {
       setAuth(response.data);
       setEmail('')
       setPassword('')
+      // toast.success(`Welcome ${auth.firstName}`,{ position: "top-right", autoClose: 2000})
       isAdmin ? navigate('../admin_dashboard') : navigate('../user_dashboard');
 
     } catch (err) {
       if (err.code === "ERR_NETWORK") {
-        toast("Server Not Responding Logged In", { position: "top-right", autoClose: 2000 })
+        toast.error("Server Not Responding Logged In", { position: "top-right", autoClose: 2000 })
         navigate('../')
       }
-      else {
-        toast("Some Error in Log In", { position: "top-right", autoClose: 2000 })
+      else if(err.code === "ERR_BAD_REQUEST"){
+        console.log(err);
+        toast.error("Invalid Credintial", { position: "top-right", autoClose: 2000, })
       }
+      // else{
+        
+      //   toast.error("Something Went Wrong in LogIn", { position: "top-right", autoClose: 2000, })
+      // }
     }
   }
 

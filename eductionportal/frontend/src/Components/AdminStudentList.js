@@ -1,10 +1,14 @@
 import React,{useState, useEffect} from 'react'
+import { useNavigate } from 'react-router-dom';
 import axios from '../Api/axios';
 import '../CSS/AdminStudentList.css'
 function AdminStudentList() {
     const [students, setStudents] = useState(null)
     const USERS_URL = "users";
-    const handleEditStudent =()=>{}
+    const navigate = useNavigate()
+    const handleEditStudent =(id)=>{
+      navigate('../editStudent/'+id)
+    }
     const handleDeleteStudent =()=>{}
 
 

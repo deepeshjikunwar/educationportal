@@ -2,21 +2,21 @@ import React, { useState,useContext } from 'react';
 import axios from '../Api/axios';
 import AuthContext from '../context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
-// import '../CSS/CourseForm.css'
+import '../CSS/Login.css'
 import { toast } from 'react-toastify';
 function CourseForm() {
   const  { auth,setAuth } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
-  if(auth === null || auth === undefined) {
-    toast("Not Authorized",{autoClose:200});
-    navigate('../');
-  }
+  // if(auth === null || auth === undefined) {
+  //   toast.info("Not Authorized Login First",{autoClose:400});
+  //   navigate('../');
+  // }
 
 
 
-  const BASE_URL = '/admin/'+auth.id+"/addCourse";
+  // const BASE_URL = '/admin/'+auth?.id+"/addCourse";
  
 
   const [title, setTitle] = useState('');
@@ -27,9 +27,12 @@ function CourseForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    if(auth === null || auth === undefined) {
+      toast.info("Not Authorized Login First",{autoClose:400});
+      navigate('../');
+    }
     try {
-      const response = await axios.post(BASE_URL,
+      const response = await axios.post(`/admin/${auth.id}/addCourse`,
         { title, startDate, endDate, capacity}
     );
     console.log("response :"+JSON.stringify(response));
@@ -37,8 +40,7 @@ function CourseForm() {
     setStartDate('')
     setEndDate('')
     setCapacity('')
-      let toAdd = window.confirm("Do you want to add another course ?");
-      if(toAdd === false) navigate('../admin_dashboard')
+    navigate('../courses')
     } catch(err){
       if (!err) {
         console.log('No Server Response');
@@ -53,28 +55,41 @@ function CourseForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='login-form signup-form' onSubmit={handleSubmit}>
+      <h1 className='login-form-item login-form-heading'>Add New Course</h1>
+      <div className="login-form-item">
+
       <label>
         Title:
-        <input type="text" name="title" value={title} onChange={(e)=>{setTitle(e.target.value)}} />
       </label>
-      <br />
+        <input required type="text" name="title" value={title} onChange={(e)=>{setTitle(e.target.value)}} />
+      </div>
+     
+      <div className="login-form-item">
+
       <label>
         Start Date:
-        <input type="date" name="startDate" value={startDate} onChange={(e)=>{setStartDate(e.target.value)}} />
       </label>
-      <br />
+        <input required type="date" name="startDate" value={startDate} onChange={(e)=>{setStartDate(e.target.value)}} />
+      </div>
+ 
+      <div className="login-form-item">
+
       <label>
         End Date:
-        <input type="date" name="endDate" value={endDate} onChange={(e)=>{setEndDate(e.target.value)}} />
       </label>
-      <br />
+        <input required type="date" name="endDate" value={endDate} onChange={(e)=>{setEndDate(e.target.value)}} />
+      </div>
+      
+      <div className="login-form-item">
+
       <label>
         Capacity:
-        <input type="number" name="capacity" value={capacity} onChange={(e)=>{setCapacity(e.target.value)}} />
       </label>
-      <br />
-      <button type="submit">Submit</button>
+        <input required type="number" name="capacity" value={capacity} onChange={(e)=>{setCapacity(e.target.value)}} />
+      </div>
+      
+      <button  className='login-form-item add-course-submit' type="submit">Submit</button>
     </form>
   );
 }

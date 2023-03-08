@@ -39,7 +39,6 @@ public class Admin extends BaseEntity {
 		courses.add(course);
 		course.setAdmin(this);
 		return course;
-		
 	}
 	
 }

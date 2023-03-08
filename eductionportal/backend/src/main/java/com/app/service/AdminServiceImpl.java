@@ -3,21 +3,27 @@ package com.app.service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.modelmapper.ModelMapper;
+
 import com.app.dao.AdminRepository;
 import com.app.dao.ContentRepository;
 import com.app.dao.CourseRepository;
+import com.app.dao.UserRepository;
 import com.app.dto.AddContent;
 import com.app.dto.AddCourse;
 import com.app.dto.AdminSignup;
+import com.app.dto.UserDTO;
 import com.app.exception.EntityNotFound;
 import com.app.pojos.Admin;
 import com.app.pojos.Content;
 import com.app.pojos.Course;
+import com.app.pojos.User;
 
 @Service
 @Transactional
@@ -29,6 +35,10 @@ public class AdminServiceImpl implements AdminService {
 	private CourseRepository courseRepo;
 	@Autowired
 	private ContentRepository contentRepo;
+	@Autowired
+	private UserRepository userRepo;
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@Override
 	public Admin authenticateAdmin(String email, String password) {
@@ -74,5 +84,17 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<Course> findAllCourseByAdminId(Long adminId) {
 		return courseRepo.findAllCoursesByAdminId(adminId);
+	}
+
+	@Override
+	public List<UserDTO> getUsersEnrolledInCourseAddedByAdmin(Long adminId, Long courseId) {
+		  Admin admin = adminRepo.findById(adminId).orElseThrow(() -> new EntityNotFound("Admin not found with id: " + adminId));
+	        Course course = courseRepo.findById(courseId).orElseThrow(() -> new EntityNotFound("Course not found with id: " + courseId));
+	        if (!admin.getCourses().contains(course)) {
+	            throw new EntityNotFound("Course with id: " + courseId + " is not added by Admin with id: " + adminId);
+	        }
+	        List<User> users = userRepo.findByEnrolledCourses(course);
+	        List<UserDTO> userDTOs = users.stream().map(user -> modelMapper.map(user, UserDTO.class)).collect(Collectors.toList());
+	        return userDTOs;
 	}
 }

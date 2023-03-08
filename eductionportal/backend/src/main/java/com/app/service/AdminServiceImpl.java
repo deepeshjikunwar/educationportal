@@ -97,4 +97,9 @@ public class AdminServiceImpl implements AdminService {
 	        List<UserDTO> userDTOs = users.stream().map(user -> modelMapper.map(user, UserDTO.class)).collect(Collectors.toList());
 	        return userDTOs;
 	}
+
+	@Override
+	public Course findCourseByCourseId(Long courseId) {
+		return courseRepo.findById(courseId).orElseThrow(()-> new EntityNotFound("Course Not Found"));
+	}
 }

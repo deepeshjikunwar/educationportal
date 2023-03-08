@@ -49,5 +49,8 @@ public class Course extends BaseEntity{
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Admin admin;
+	
+//	@OneToMany(mappedBy = "course",cascade=CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
+//	private List<Assignment> assignments;
 
 }

@@ -74,5 +74,11 @@ public class AdminController {
         List<UserDTO> userDTOs = adminService.getUsersEnrolledInCourseAddedByAdmin(adminId, courseId);
         return userDTOs;
     }
+	
+	//method to get a course by Id
+	@GetMapping("/course/{courseId}")
+	public ResponseEntity<?> getCourseById(@PathVariable Long courseId){
+		return ResponseEntity.status(HttpStatus.FOUND).body(adminService.findCourseByCourseId(courseId));
+	}
 
 }

@@ -1,5 +1,5 @@
 import React, { useState , useContext} from 'react';
-import '../CSS/SignUp.css'
+// import '../CSS/SignUp.css'
 
 import axios from '../Api/axios';
 import AuthContext from '../context/AuthProvider';

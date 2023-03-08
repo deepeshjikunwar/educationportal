@@ -9,9 +9,9 @@ function Footer() {
   const navigate = useNavigate();
   return (
     <footer>
-      <div className="user">{auth ? auth.firstName : null} .</div>
+      <div className="user"> User : {auth ? auth.firstName : "Not Logged In"}</div>
       <div className="lougout">
-        <button onClick={()=>{setAuth(null); navigate('../') }}></button>
+        <button className="logout-btn" onClick={()=>{setAuth(null); navigate('../') }}>Logout</button>
       </div>
     </footer>
   )

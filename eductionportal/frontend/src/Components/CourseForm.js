@@ -2,7 +2,7 @@ import React, { useState,useContext } from 'react';
 import axios from '../Api/axios';
 import AuthContext from '../context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
-import '../CSS/CourseForm.css'
+// import '../CSS/CourseForm.css'
 import { toast } from 'react-toastify';
 function CourseForm() {
   const  { auth,setAuth } = useContext(AuthContext);

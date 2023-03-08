@@ -1,12 +1,20 @@
 footer{
-    width: 100%;
-    /* position: fixed; */
-    bottom :0;
+    height: 2rem;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
+    background-color: chocolate;
+    bottom: 0px;
+    margin-top: 1rem;
 }
-button{
-    width: 75px;
-    height: 30px;
+.user{
+    display: grid;
+    place-content: center;
+    width: 15em;
+    height: 100%;
+    background-color: blueviolet;
+}
+.logout-btn{
+    width: 7rem;
+    height: 100%;
+    background-color: darkgray;
 }

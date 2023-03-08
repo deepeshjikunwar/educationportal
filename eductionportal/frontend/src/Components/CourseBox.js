@@ -5,11 +5,10 @@ import '../CSS/CourseBox.css';
 const CourseBox = ({ title, description, capacity }) => {
   return (
     <div className="course-container">
-      {/* Heloooooooooooooooo */}
-      <h1 className="course-title">{title}</h1>
+      <h2 className="course-title">{title}</h2>
       <p className="course-description">{description}</p>
-      <div className="students-list">
-        <h2 className="students-list-title">Capacity: {capacity}</h2>
+
+        <h3 className="course-capacity">Capacity: {capacity}</h3>
         <ul className="students-list-items">
           {
           /* {students.map(student => (
@@ -22,7 +21,7 @@ const CourseBox = ({ title, description, capacity }) => {
           ))} */ 
           }
         </ul>
-      </div>
+   
     </div>
   );
 };

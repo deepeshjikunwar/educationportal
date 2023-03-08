@@ -1,12 +1,6 @@
-.course_box:hover{
-    background-color: blue;
+.admin-course-list{
+    background-color: blueviolet;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
 }
-.course_box{
-    background-color: blue;
-    font-size: 50px;
-    z-index: 5;
-}
-/* .course_box_len{
-    height: 50px;
-    width: 50px;
-} */

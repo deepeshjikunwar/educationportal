@@ -1,47 +1,13 @@
-
-.course-container {
-  margin: 20px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.course-container{
+    /* background-color: aqua; */
+    height: 5rem;
+    width: 10rem;
+    display: grid;
+    place-content: center;
+    border-radius: 5%;
+    margin: 1rem;
 }
-
-.course-title {
-  font-size: 32px;
-  margin-bottom: 10px;
-}
-
-.course-description {
-  font-size: 18px;
-  margin-bottom: 20px;
-}
-
-.students-list {
-  margin-top: 20px;
-}
-
-.students-list-title {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.students-list-items {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.student {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 5px;
-}
-
-.student-name {
-  font-size: 18px;
-}
-
-.student-age {
-  font-size: 16px;
-  color: #888;
+.course-container:hover{
+    cursor: pointer;
+    background-color: gray;
 }

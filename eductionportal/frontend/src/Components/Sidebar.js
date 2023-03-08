@@ -4,15 +4,15 @@ import '../CSS/Sidebar.css';
 function Sidebar(){
     const navigate = useNavigate(); 
     return(
-    <>
-    <div  className="div-one">
+    
+    <div  className="sidebar">
    
-    <button onClick={()=>{navigate('students')}}>Student List</button><br />
-    <button onClick={()=>{navigate('courses')}}>Course List</button><br />
-    <button>Extra Button</button><br />
-    <button>Extra Button</button><br />
+    <button className='sidebar-btns' onClick={()=>{navigate('students')}}>Student List</button><br />
+    <button className='sidebar-btns' onClick={()=>{navigate('courses')}}>Course List</button><br />
+    <button className='sidebar-btns' onClick={() => { navigate("/editStudent") }} >Add Student</button>
+    <button className='sidebar-btns' onClick={() => { navigate("/courses") }}>Add Course</button>
     </div>
-    </>
+    
     )
 
 }

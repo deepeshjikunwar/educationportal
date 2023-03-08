@@ -31,12 +31,14 @@ function App() {
   return (
     <div className="App">
       <Header />
+      <main>
+        
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='/login_user' element={<LoginUser />} />
+        <Route path='/login_user' element={<Login />} />
         <Route path='/login_admin' element={<Login />} />
 
-        <Route path='/signup_user' element={<SignupFormUser/>} />
+        <Route path='/signup_user' element={<SignupForm/>} />
            {/* <Login /> */}
         <Route path='/signup_admin' element={<SignupForm />} />
         {/* <Route path='/course' element={<Course />} /> */}
@@ -51,6 +53,7 @@ function App() {
         <Route path='/addCourse' element={<CourseForm />}  /> 
 
       </Routes>
+      </main>
       <Footer />
       <ToastContainer></ToastContainer>
     </div>

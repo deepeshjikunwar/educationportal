@@ -1,27 +1,19 @@
-.course {
+.course{
     display: flex;
     flex-direction: column;
-    align-items: center;
-  }
-  
-  .course-info {
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid black;
-  }
-  
-  .enrolled-students {
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid black;
-  }
-  
-  .course-content {
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid black;
-  }
-  
-  /* .course-content ul {
-    list-style
-  }   */
+    /* align-items: center; */
+}
+.course-info{
+    display: grid;
+    place-content: center;
+    
+}
+.course-students{
+    padding-top: 2rem;
+    padding-left: 2rem;
+}
+.course-content{
+    width: 100%;
+    display: grid;
+    place-content: center;
+}

@@ -1,20 +1,12 @@
-.div-one
-{
-    height:620px;
-    width:400px;
-    background-color:skyblue;
-    float:left;
-   
-    margin-left:50px;
-    
-
+.sidebar{
+    display: flex;
+    flex-direction: column;
 }
-
-button
-{
-    margin-top:70px;
-    width:100px;
-    height:70px;
-    background-color: black;
-    color:white;
+.sidebar-btns{
+    height: 4rem;
+    margin: 1rem;
+    border-radius: 10%;
+}
+.sidebar-btns:hover{
+    background-color: rgb(149, 146, 151);
 }

@@ -25,19 +25,17 @@ public class VisitServiceImpl implements VisitService {
 
 	@Override
 	public Visit markContentAsVisited(Long userId, Long contentId, boolean isVisited){
-		Visit visit = new Visit();
+		
+		Visit visit = visitRepo.findByUserIdAndContentId(userId, contentId);
+		System.out.println("in service of markasvisited");
 		User user = userRepo.findById(userId).orElseThrow(()-> new EntityNotFound("No such entity"));
 		Content content = contentRepo.findById(contentId).orElseThrow(()-> new EntityNotFound("No such entity"));
+		if(visit==null) {
+			visit = new Visit();
+		}
 		visit.setUser(user);
 		visit.setContent(content);
 		visit.setVisited(isVisited);
 		return visitRepo.save(visit);
-
-		//		Visit visit = visitRepo.findByUserIdAndContentId(userId, contentId);
-		//		System.out.println(visit.toString());
-		//		if (visit != null) {
-		//			visit.setVisited(isVisited);
-		//			visitRepo.save(visit);
-		//		}
 	}
 }

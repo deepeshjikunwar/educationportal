@@ -1,5 +1,9 @@
 package com.app.dto;
 
+
+import com.app.pojos.Content;
+import com.app.pojos.User;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,15 +11,11 @@ import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
 @Getter
+@Setter
 public class VisitDTO {
-	private boolean isVisited;
 	
-	public boolean isVisited() {
-        return isVisited;
-    }
-    public void setVisited(boolean isVisited) {
-        this.isVisited = isVisited;
-    }
+	private User user;
+	private Content content;
+	private boolean isVisited;
 }

@@ -18,6 +18,7 @@ import com.app.dto.AddContent;
 import com.app.dto.AddCourse;
 import com.app.dto.AdminLogin;
 import com.app.dto.AdminSignup;
+import com.app.dto.UserDTO;
 import com.app.exception.EntityNotFound;
 import com.app.pojos.Admin;
 import com.app.pojos.Course;
@@ -64,5 +65,14 @@ public class AdminController {
 	public ResponseEntity<?> getCoursesByAdminId(@PathVariable Long adminId) {
 	    return  ResponseEntity.status(HttpStatus.CREATED).body(adminService.findAllCourseByAdminId(adminId));
 	}
+	
+	//method to get a list of student enrolled in a course by a particular admin
+	@GetMapping("/{adminId}/courses/{courseId}/users")
+    public List<UserDTO> getUsersEnrolledInCourseAddedByAdmin(
+        @PathVariable("adminId") Long adminId,
+        @PathVariable("courseId") Long courseId) {
+        List<UserDTO> userDTOs = adminService.getUsersEnrolledInCourseAddedByAdmin(adminId, courseId);
+        return userDTOs;
+    }
 
 }

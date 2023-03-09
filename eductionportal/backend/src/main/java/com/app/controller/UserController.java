@@ -138,7 +138,7 @@ public class UserController {
 	@GetMapping("{userId}/enroll/{courseId}") 
 	public ResponseEntity<?> enrollIntoCourse(@PathVariable Long userId, @PathVariable Long courseId){
 		return  ResponseEntity.status(HttpStatus.CREATED).body(userService.enrollIntoCourse(userId,courseId));
-
+ 
 	}
 
 	//method for user to mark a topic as completed

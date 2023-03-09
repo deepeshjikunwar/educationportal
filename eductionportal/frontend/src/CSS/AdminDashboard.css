@@ -1,0 +1,34 @@
+.dashboard{
+    /* background-color: aqua; */
+    width: 90vw;
+    height: 80vh;
+}
+.dashboard >h1{
+    display: grid;
+    place-content: center;
+}
+.dashboard-main{
+    /* background-color: blue; */
+    height: 95%;
+    display: flex;
+}
+.dashboard-btns{
+    /* background-color: blueviolet; */
+    width: 15%;
+}
+.dashboard-content{
+    background-color: aqua;
+    width: 85%;
+}
+.dashboard-content-btns{
+    bottom: 0;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    background-color: blue;
+}
+.dashboard-content-btns > button{
+    padding: 0 2rem;
+    bottom: 0;
+}

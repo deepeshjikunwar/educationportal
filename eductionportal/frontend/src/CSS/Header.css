@@ -1,0 +1,15 @@
+header{
+    display: flex;
+    justify-content: space-evenly;
+    height: 2.5em;
+    align-items: center;
+    /* border: 2px solid black; */
+    gap:1rem;
+}
+.menu-link{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+
+
+}

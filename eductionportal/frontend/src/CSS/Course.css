@@ -1,0 +1,19 @@
+.course{
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+}
+.course-info{
+    display: grid;
+    place-content: center;
+    
+}
+.course-students{
+    padding-top: 2rem;
+    padding-left: 2rem;
+}
+.course-content{
+    width: 100%;
+    display: grid;
+    place-content: center;
+}

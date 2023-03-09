@@ -1,0 +1,41 @@
+.login{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.login-img{
+    height: 20rem;
+    width: 20rem;
+}
+.login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 12em;
+    background-color: aqua;
+    
+}
+.signup-form{
+    height: 13em;
+    padding-right: 2em;
+}
+.login-form-heading{
+    padding-bottom: 3rem;
+}
+.login-form-item{
+    display: flex;
+    justify-content: space-around;
+    height: 1.5rem;
+}
+.login-form-item > label{
+    width: 10rem;
+    display: grid;
+    place-content: center;
+}
+.signup-form-button{
+    margin-left: 1.5em;
+}
+.login-form-submit-edit{
+    width: 80%;
+    margin: auto;
+}

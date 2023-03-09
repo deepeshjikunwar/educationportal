@@ -1,0 +1,12 @@
+.sidebar{
+    display: flex;
+    flex-direction: column;
+}
+.sidebar-btns{
+    height: 4rem;
+    margin: 1rem;
+    border-radius: 10%;
+}
+.sidebar-btns:hover{
+    background-color: rgb(149, 146, 151);
+}

@@ -1,0 +1,22 @@
+.home{
+    /* width: 100vw; */
+    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+}
+.home-img{
+    height: 30rem;
+    width: 50em;
+}
+.home-content{
+    display: grid;
+    place-content: center;
+}
+.home-btns{
+    display: flex;
+    justify-content: space-evenly;
+}
+.home-btns > button{
+    height: 2.5rem;
+    width: 7rem;
+}

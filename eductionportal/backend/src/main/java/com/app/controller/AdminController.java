@@ -83,7 +83,7 @@ public class AdminController {
 	//method to get a course by Id
 	@GetMapping("/course/{courseId}")
 	public ResponseEntity<?> getCourseById(@PathVariable Long courseId){
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(adminService.findCourseByCourseId(courseId));
+		return ResponseEntity.status(HttpStatus.OK).body(adminService.findCourseByCourseId(courseId));
 	}
 	
 	//method to create assignment
@@ -91,6 +91,4 @@ public class AdminController {
 	public ResponseEntity<?> createAssignmentByCourseId(@RequestBody AssignmentDTO transientAssignment,@PathVariable Long courseId){
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(assignmentService.addAssignmentByCourseId(transientAssignment,courseId));
 	}
-	
-
 }

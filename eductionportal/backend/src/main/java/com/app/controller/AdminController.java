@@ -78,7 +78,7 @@ public class AdminController {
 	//method to get a course by Id
 	@GetMapping("/course/{courseId}")
 	public ResponseEntity<?> getCourseById(@PathVariable Long courseId){
-		return ResponseEntity.status(HttpStatus.OK).body(adminService.findCourseByCourseId(courseId));
+		return ResponseEntity.status(HttpStatus.FOUND).body(adminService.findCourseByCourseId(courseId));
 	}
 
 }

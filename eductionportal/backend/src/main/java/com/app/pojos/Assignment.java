@@ -26,7 +26,7 @@ public class Assignment extends BaseEntity {
     private String description;
     private LocalDate dueDate;
     
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     @JsonIgnore
     private Course course;

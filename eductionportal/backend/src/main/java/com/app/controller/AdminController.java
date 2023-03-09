@@ -85,7 +85,6 @@ public class AdminController {
 	public ResponseEntity<?> getCourseById(@PathVariable Long courseId){
 		return ResponseEntity.status(HttpStatus.OK).body(adminService.findCourseByCourseId(courseId));
 	}
-	
 	//method to create assignment
 	@PostMapping("/course/{courseId}/addAssignment")
 	public ResponseEntity<?> createAssignmentByCourseId(@RequestBody AssignmentDTO transientAssignment,@PathVariable Long courseId){

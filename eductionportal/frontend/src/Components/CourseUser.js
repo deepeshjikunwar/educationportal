@@ -4,9 +4,9 @@ import { toast } from 'react-toastify';
 import axios from '../Api/axios';
 import AuthContext from '../context/AuthProvider';
 import '../CSS/Course.css'
-function Course() {
+function CourseUser() {
     const {id} = useParams();
-    const BASE_URL = '/admin/addContent/'+id;
+    const BASE_URL = '/users/addContent/'+id;
     const BASE_URL_CONTENT = "/admin/course/"+id;
 
     const {auth} = useContext(AuthContext);
@@ -40,46 +40,9 @@ useEffect(() => {
   if(course === null) getData();
 })
 
-
-
 const [newTitle, setNewTitle] = useState('');
 const [newContent, setNewContent] = useState('');
 
-const refreshContent = async() =>{
-    if(auth === null || auth === undefined) {
-        toast("You should login FIrst");
-        navigate('../');
-    }
-    try {
-        const response = await axios.get(`/admin/${auth.id}/courses`
-          );
-          console.log("In Refresh"+JSON.stringify(response));
-          setCourse(response.data)
-  }catch(e){
-    console.log(e)
-    console.log("URL ===="+`/admin/${auth.id}/courses`)
-    alert("Something went wrong")
-  }
-}
-
-const handleAddContent = async () => {
-      if(newTitle.length === 0 || newContent.length === 0) return;
-        try {
-            const response = await axios.post(BASE_URL,
-              { 'contentName':newTitle,'link':newContent}
-
-              );
-              setNewTitle('')
-              setNewContent('')
-              toast('content Succefuly added !',{autoClose:200});
-              getData();
-
-      }catch(e){
-        console.log(e)
-        alert("Something went wrong")
-      }
-    
-}
 //   // TODO: Implement logic to add new content to the course
   return (
     <div className="course">
@@ -112,11 +75,9 @@ const handleAddContent = async () => {
           <input type="text" value={newContent} onChange={(e)=>{setNewContent(e.target.value)}}placeholder="Enter Content Link"/>
         
       </ul>
-      <button onClick={handleAddContent}>Add Content</button>
-      <button onClick={refreshContent}>Refresh Content</button>
     </div>
   </div>
   )
 }
 
-export default Course;
+export default CourseUser;

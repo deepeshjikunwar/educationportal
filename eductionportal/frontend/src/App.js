@@ -15,6 +15,7 @@ import Footer from './Components/Footer';
 import {ToastContainer, toast } from 'react-toastify';
 import CourseForm from './Components/CourseForm';
 
+
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminStudentList from './Components/AdminStudentList';
@@ -22,6 +23,7 @@ import AdminCourseList from './Components/AdminCourseList';
 import Course from './Components/Course';
 import EnrolledCourse from './Components/EnrolledCourse';
 import AvailableCourses from './Components/AvailableCourses';
+import CourseUser from './Components/CourseUser';
 
 function App() {
   // toast.configure();
@@ -47,6 +49,7 @@ function App() {
         <Route path='/user_dashboard/' element={<UserDashboard />} >
             <Route path='enrolled_courses' element={<EnrolledCourse />} />
             <Route path='available_courses' element={<AvailableCourses />} />
+            <Route path='course/:id' element={<CourseUser />} />
         </Route>
         <Route path='/admin_dashboard/' element={<AdminDashboard />} >
             <Route path='students' element={<AdminStudentList />} />

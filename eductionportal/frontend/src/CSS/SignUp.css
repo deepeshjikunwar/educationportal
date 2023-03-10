@@ -1,7 +1,95 @@
-.signup-form{
-    background-color: aqua;
-    display: flex;
-    flex-direction: column;
-    /* height: 20em; */
-    /* width: 30em; */
-}
+.signup {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  margin-top: 5cm;
+  height: 80vh;
+  background-color: #F3F3F3;
+  }
+  
+  .signup-img {
+    width: 45%;
+    margin-right: 2rem;
+  }
+  
+  .signup-form {
+    background-color: #fff;
+    padding: 50px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+  
+  .signup-form-heading {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .signup-form-item {
+    margin-bottom: 20px;
+  }
+  
+  .signup-form-item label {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .signup-form-item input {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    padding: 10px;
+    font-size: 1.2rem;
+    outline: none;
+    transition: border-bottom-color 0.3s;
+  }
+  
+  .signup-form-item input:focus {
+    border-bottom-color: #06c;
+  }
+  
+  .signup-form-item input[type="submit"] {
+    background-color: #06c;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .signup-form-item input[type="submit"]:hover {
+    background-color: #007bff;
+  }
+  
+  .signup-form-item label.checkbox {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  .signup-form-item label.checkbox input[type="checkbox"] {
+    margin-right: 5px;
+  }
+  
+  .signup-form-item label.checkbox a {
+    color: #06c;
+    text-decoration: none;
+  }
+  
+  .signup-form-item p {
+    margin-top: 10px;
+    font-size: 1.1rem;
+    text-align: center;
+  }
+  
+  .signup-form-item p a {
+    color: #06c;
+    text-decoration: none;
+  }
+  
+  
+  

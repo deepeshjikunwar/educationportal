@@ -1,5 +1,5 @@
 import React, { useState , useContext} from 'react';
-// import '../CSS/SignUp.css'
+import '../CSS/Login.css'
 
 import axios from '../Api/axios';
 import AuthContext from '../context/AuthProvider';
@@ -76,7 +76,7 @@ function SignupFormUser() {
         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       </label>
       <br />
-      <button type="submit">Sign Up</button>
+      <button type="submit" className='login-form-item-sb'>Sign Up</button>
     </form>
   );
 }

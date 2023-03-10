@@ -1,5 +1,6 @@
 .dashboard{
     /* background-color: aqua; */
+    margin-top: 3cm;
     width: 90vw;
     height: 80vh;
 }
@@ -11,6 +12,7 @@
     /* background-color: blue; */
     height: 95%;
     display: flex;
+    background-color: #ffb5b5;
 }
 .dashboard-btns{
     /* background-color: blueviolet; */

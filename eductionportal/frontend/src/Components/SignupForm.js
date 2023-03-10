@@ -82,7 +82,7 @@ function SignupForm() {
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
         <br />
-        <button  className='login-form-item signup-form-button' type="submit">Sign Up</button>
+        <button  className='login-form-item-sb' type="submit">Sign Up</button>
       </form>
     </div>
   );

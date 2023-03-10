@@ -33,7 +33,7 @@ public class Content extends BaseEntity {
 	@Column(length=200)
 	private String link;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name="course_id")
 	@JsonIgnore
 	private Course course;

@@ -11,6 +11,7 @@ function Footer() {
     <footer>
       <div className="user"> User : {auth ? auth.firstName : "Not Logged In"}</div>
       <div className="lougout">
+        &nbsp;&nbsp;
         <button className="logout-btn" onClick={()=>{setAuth(null); navigate('../') }}>Logout</button>
       </div>
     </footer>

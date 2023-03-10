@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import axios from '../Api/axios';
 import AuthContext from '../context/AuthProvider';
 import '../CSS/Course.css'
+
 function Course() {
     const {id} = useParams();
     const BASE_URL = '/admin/addContent/'+id;

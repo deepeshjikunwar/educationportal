@@ -1,9 +1,10 @@
 import React,{useContext, useEffect} from 'react'
 import CourseBox from './CourseBox'
-import '../CSS/AdminCourseList.css'
+// import '../CSS/AdminCourseList.css'
 import { useNavigate } from 'react-router-dom'
 import AuthContext from '../context/AuthProvider';
 import { toast } from 'react-toastify';
+import {  Space } from 'antd';
 function AdminCourseList({ courses }) {
     // let courses = [32,333];
     const { auth } = useContext(AuthContext);
@@ -19,7 +20,7 @@ function AdminCourseList({ courses }) {
 
     // console.log("In Admin Course List : " + JSON.stringify(courses))
     return (
-        <div className='admin-course-list'>
+        <Space direction="horizontal" size={10} className='admin-course-list'>
             {/* Course List */}
             {/* <CourseBox onClick={()=>{alert('hellll')}} title="Java" description="Good" capacity="30" /> */}
             {/* <div onClick={() =>  */}
@@ -35,7 +36,7 @@ function AdminCourseList({ courses }) {
                 <CourseBox title={ele.title} description={ele.description} capacity={ele.capacity} /> 
                  </div>
             }):null}
-        </div>
+        </Space>
     )
 }
 

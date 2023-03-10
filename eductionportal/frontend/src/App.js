@@ -35,9 +35,8 @@ function App() {
   return (
     <div className="App">
       <Header />
-      
       <main>
-     
+        
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/login_user' element={<Login />} />
@@ -66,7 +65,7 @@ function App() {
 
       </Routes>
       </main>
-  
+      {/* <Footer /> */}
       <ToastContainer></ToastContainer>
     </div>
   );

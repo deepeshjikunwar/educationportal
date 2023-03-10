@@ -55,7 +55,7 @@ function CourseForm() {
   }
 
   return (
-    <form className='login-form signup-form' onSubmit={handleSubmit}>
+    <form className='login-form signup-form course-form' onSubmit={handleSubmit}>
       <h1 className='login-form-item login-form-heading'>Add New Course</h1>
       <div className="login-form-item">
 

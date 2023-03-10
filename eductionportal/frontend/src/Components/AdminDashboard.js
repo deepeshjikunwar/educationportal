@@ -5,6 +5,8 @@ import '../CSS/AdminDashboard.css'
 import CourseForm from './CourseForm';
 import CourseBox from './CourseBox';
 import Sidebar from './Sidebar'
+import {Layout} from 'antd'
+const {Sider, Content} = Layout;
 function AdminDashboard() {
 
   const USERS_URL = "users";
@@ -49,23 +51,27 @@ function AdminDashboard() {
   };
 
   return (
-    <div className='dashboard'>
+    <Layout className='dashboard'>
       <h1>Admin Dashboard</h1>
       <div className="dashboard-main">
 
-        <aside className='dashboard-btns'>
+        <Sider className='dashboard-btns'>
           <Sidebar />
-        </aside>
-        <div className='dashboard-content'>
+        </Sider>
+        <Content className='dashboard-content' style={{"display":"grid" , "placeContent" : "center"}}>
           <Outlet />
           {/* <div className="dashboard-content-btns"> */}
       {/* <button onClick={() => { navigate("/editStudent") }} >Add Student</button> */}
       {/* <button onClick={() => { navigate("/courses") }}>Add Course</button> */}
           {/* </div> */}
-        </div>
+        </Content>
       </div>
-      
-    </div>
+  </Layout>
+
+
+
+
+
   );
 };
 

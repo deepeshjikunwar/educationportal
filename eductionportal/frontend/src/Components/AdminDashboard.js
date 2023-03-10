@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import axios from '../Api/axios';
-import '../CSS/AdminDashboard.css'
+// import '../CSS/AdminDashboard.css'
 import CourseForm from './CourseForm';
 import CourseBox from './CourseBox';
 import Sidebar from './Sidebar'
-import {Layout} from 'antd'
-const {Sider, Content} = Layout;
+import { Layout } from 'antd'
+const { Sider, Content } = Layout;
 function AdminDashboard() {
 
   const USERS_URL = "users";
@@ -51,22 +51,32 @@ function AdminDashboard() {
   };
 
   return (
-    <Layout className='dashboard'>
-      <h1>Admin Dashboard</h1>
-      <div className="dashboard-main">
+    <Layout hasSider className='dashboard'>
+    
+  
 
-        <Sider className='dashboard-btns'>
-          <Sidebar />
-        </Sider>
-        <Content className='dashboard-content' style={{"display":"grid" , "placeContent" : "center"}}>
-          <Outlet />
+
+          <Sidebar Sider={Sider} />
+          <Content  style={
+      {
+      textAlign: 'center',
+      minHeight: 120,
+      lineHeight: '20px',
+      width:1200,
+      marginLeft:120,
+      color: '#fff',
+      
+      backgroundColor: '#fff',}} className="course">
+
+          <Outlet Content={Content} />
+      </Content>
           {/* <div className="dashboard-content-btns"> */}
-      {/* <button onClick={() => { navigate("/editStudent") }} >Add Student</button> */}
-      {/* <button onClick={() => { navigate("/courses") }}>Add Course</button> */}
+          {/* <button onClick={() => { navigate("/editStudent") }} >Add Student</button> */}
+          {/* <button onClick={() => { navigate("/courses") }}>Add Course</button> */}
           {/* </div> */}
-        </Content>
-      </div>
-  </Layout>
+      
+   
+    </Layout>
 
 
 

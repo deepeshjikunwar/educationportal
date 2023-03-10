@@ -4,6 +4,8 @@ import AuthContext from '../context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import '../CSS/Login.css'
 import { toast } from 'react-toastify';
+import { Space } from 'antd';
+
 function CourseForm() {
   const  { auth,setAuth } = useContext(AuthContext);
 
@@ -54,8 +56,7 @@ function CourseForm() {
     
   }
 
-  return (
-    <form className='login-form signup-form course-form' onSubmit={handleSubmit}>
+  return <form className='login-form signup-form course-form' onSubmit={handleSubmit}>
       <h1 className='login-form-item login-form-heading'>Add New Course</h1>
       <div className="login-form-item">
 
@@ -91,6 +92,6 @@ function CourseForm() {
       
       <button  className='login-form-item add-course-submit' type="submit">Submit</button>
     </form>
-  );
+  ;
 }
 export default CourseForm;

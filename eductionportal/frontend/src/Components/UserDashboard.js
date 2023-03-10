@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Outlet, useNavigate } from "react-router-dom";
 import SidebarUser from './SidebarUser';
-import '../CSS/AdminDashboard.css'
+// import '../CSS/AdminDashboard.css'
+import { Layout } from 'antd';
+const {Sider,Content} = Layout;
 // import {Card, CardBody, CardTitle, CardSubtitle, CardText, Button} from 'reactstrap'
 // import Course from './Course';
 function UserDashboard() {
@@ -22,23 +24,30 @@ function UserDashboard() {
   };
 
   return (
-    <div className='dashboard'>
-      <h1>User Dashboard</h1>
-      <div className="dashboard-main">
+    <Layout hasSider className='dashboard'>
+          <SidebarUser Sider={Sider}/>
 
-        <aside className='dashboard-btns'>
-          <SidebarUser />
-        </aside>
         <div className='dashboard-content'>
+        <Content  style={
+      {
+      textAlign: 'center',
+      minHeight: 120,
+      lineHeight: '20px',
+      width:1200,
+      marginLeft:120,
+      color: '#fff',
+      
+      backgroundColor: '#fff',}} className="course">
           <Outlet />
+      </Content>
           {/* <div className="dashboard-content-btns"> */}
       {/* <button onClick={() => { navigate("/editStudent") }} >Add Student</button> */}
       {/* <button onClick={() => { navigate("/courses") }}>Add Course</button> */}
           {/* </div> */}
         </div>
-      </div>
+     
       
-    </div>
+    </Layout>
   );
 }
 

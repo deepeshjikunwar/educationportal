@@ -3,7 +3,7 @@ import React from 'react';
 // import '../CSS/CourseBox.css';
 import { Card, Space } from 'antd';
 const { Meta } = Card;
-const CourseBox = ({ title, description, capacity }) => {
+const CourseBox = ({ title, description, capacity ,forStudent }) => {
   return (
     <Card hoverable className="course-container"  
     // title={title}

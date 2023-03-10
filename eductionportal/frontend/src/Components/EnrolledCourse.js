@@ -5,6 +5,7 @@ import axios from '../Api/axios';
 import { useNavigate } from 'react-router-dom'
 import AuthContext from '../context/AuthProvider';
 import { toast } from 'react-toastify';
+import { Space } from 'antd';
 
 function EnrolledCourse() {
   const USERS_URL = "users/allCourses";
@@ -37,7 +38,7 @@ function EnrolledCourse() {
   }, [])
 
   return (
-    <div className='enrolled-courses admin-course-list'>
+    <Space className='enrolled-courses admin-course-list'>
     {/* Course List */}
     {/* <CourseBox onClick={()=>{alert('hellll')}} title="Java" description="Good" capacity="30" /> */}
     {/* <div onClick={() =>  */}
@@ -53,7 +54,7 @@ function EnrolledCourse() {
         <CourseBox title={ele.title} description={ele.description} capacity={ele.capacity} /> 
          </div>
     }):null}
-</div>
+</Space>
   )
 }
 

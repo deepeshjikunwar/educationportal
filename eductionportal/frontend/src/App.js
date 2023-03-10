@@ -24,6 +24,7 @@ import Course from './Components/Course';
 import EnrolledCourse from './Components/EnrolledCourse';
 import AvailableCourses from './Components/AvailableCourses';
 import CourseUser from './Components/CourseUser';
+import CourseStudent from './Components/CourseStudent';
 
 function App() {
   // toast.configure();
@@ -54,7 +55,9 @@ function App() {
         <Route path='/admin_dashboard/' element={<AdminDashboard />} >
             <Route path='students' element={<AdminStudentList />} />
             <Route path='course/:id' element={<Course />} />
+            <Route path='courseStudentList/:id' element={<CourseStudent />} />
             <Route path='courses' element={<AdminCourseList courses={auth? auth.courses:""}/>}/>
+            <Route path='courseStudent' element={<AdminCourseList courses={auth? auth.courses:""} forStudent={true}/>}/>
             <Route path='editStudent/:id' element={<EditStudent />}/>
             <Route path='addCourse' element={<CourseForm />}/>
 

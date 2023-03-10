@@ -1,9 +1,10 @@
+import { Button, Card, Checkbox, Space, Table } from 'antd';
 import React,{useContext, useState, useEffect} from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from '../Api/axios';
 import AuthContext from '../context/AuthProvider';
-import '../CSS/Course.css'
+// import '../CSS/Course.css'
 function CourseUser() {
     const {id} = useParams();
     const BASE_URL = '/users/addContent/'+id;
@@ -11,11 +12,7 @@ function CourseUser() {
 
     const {auth} = useContext(AuthContext);
     const navigate = useNavigate()
-const [enrolledStudents, setEnrolledStudents] = useState([
-  { firstName: 'Sample', lastName: 'Data' },
-  { firstName: 'Jane', lastName: 'Doe' },
-  { firstName: 'Bob', lastName: 'Smith' },
-]);
+
 
 const [content, setContent] = useState(null);
 
@@ -35,48 +32,89 @@ console.log("In Get Data of Course :"+e)
 // alert("Something went wrong in Get Data Course")
 }
 }
-
+const MARK_URL = 'users/'
 useEffect(() => {
   if(course === null) getData();
 })
+const onChangeCheck =async (id,checkedValue) => {
+  try {
+    const response = await axios.post(MARK_URL+`${auth.id}/${id}`,
+      { isVisited: checkedValue}
+    );
+    console.log("response of marking Student :" + JSON.stringify(response));
+    
+  } catch (err) {
+    if (err.code === "ERR_NETWORK") {
+      toast.error("Server Not Responding Logged In", { position: "top-right", autoClose: 2000 })
+      navigate('../')
+    }
+    else{
+      
+      toast.error("Something Went Wrong in Marking Student", { position: "top-right", autoClose: 2000, })
+    }
+  }
+};
+// Ant Design Table data
+const columns = [
+  {
+    title: 'Topic',
+    dataIndex: 'contentName',
 
-const [newTitle, setNewTitle] = useState('');
-const [newContent, setNewContent] = useState('');
+    onFilter: (value, record) => record.name.indexOf(value) === 0,
+    sorter: (a, b) => (a.firstName).toLowerCase() < (b.firstName).toLowerCase(),
+    sortDirections: ['descend'],
+  },
+  {
+    title: 'Resources',
+    dataIndex: 'link',
+
+    sorter: (a, b) => a.lastName < b.lastName,
+    sortDirections: ['descend'],
+    render: (_, record) => <a href={"https://"+record.link} target={'_blank'}> {record.link}</a>
+  },
+  {
+    title: 'Completed',
+    dataIndex: '',
+    key: 'x',
+  
+    render: (_,record) => <Checkbox onChange={(e)=> {onChangeCheck(record.id,e.target.checked)}} ></Checkbox>,
+  },                      //c<Checkbox onChange={onChange}>Checkbox</Checkbox>;
+];
+const onChange = (pagination, filters, sorter, extra) => {
+  console.log('params', pagination, filters, sorter, extra);
+}
+
 
 //   // TODO: Implement logic to add new content to the course
   return (
-    <div className="course">
-    <div className="course-info">
-      <h1>Title : {course?.title}</h1>
+    <Space
+  block={true}
+  direction={'vertical'}
+  size={['middle']}
+  wrap
+  align='center'
+  >
+    <Card
+      title={course?.title}
+      bordered={false}
+      style={{
+        width: 1200,
+      }}
+    >
       <p>Start Date: {course?.startDate}</p>
       <p>End Date: {course?.endtDate}</p>
       <p>Capacity: {course?.capacity}</p>
-    </div>
+    </Card>
 
-    <div className="course-students">
-      <h2>Enrolled Students:</h2>
-      <ul>
-        {enrolledStudents.map((student, index) => (
-          <li key={index}>{student.firstName} {student.lastName}</li>
-        ))}
-      </ul>
-    </div>
-
-    <div className="course-content">
-      <h2>Course Content:</h2>
-      <ul>
-        {content ? content.map((item, index) => (
-          <li key={index}><a href={"https://"+(item.link)} target="_blank">{item.contentName}</a></li>
-        )) : null}
-        
-          <input type="text" value={newTitle} onChange={(e)=>{setNewTitle(e.target.value)}} placeholder="Enter Content Title"/>
-          {/* </li>
-          <li> */}
-          <input type="text" value={newContent} onChange={(e)=>{setNewContent(e.target.value)}}placeholder="Enter Content Link"/>
-        
-      </ul>
-    </div>
-  </div>
+    <Table
+    style={{
+      width:1200,
+      alignItems:'center'
+    }}
+    pagination={{ pageSizeOptions: ['5', '10'], showSizeChanger: true }}
+      columns={columns} dataSource={content} onChange={onChange} />
+    
+  </Space>
   )
 }
 

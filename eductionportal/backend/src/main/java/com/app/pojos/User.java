@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,14 +29,14 @@ public class User extends BaseEntity {
 	private String email;
 	private String password;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "student_course",
 	joinColumns = @JoinColumn(name="student_id"),
 	inverseJoinColumns = @JoinColumn(name = "course_id"))
-	@JsonIgnore
 	private List<Course> enrolledCourses;
 	
-	@OneToMany(mappedBy = "user",cascade=CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user",cascade=CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
+	@JsonIgnore
 	private List<Visit> visits;
 	
 	public User enrollIntoCurrentCourse(Course course) {

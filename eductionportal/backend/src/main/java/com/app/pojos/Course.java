@@ -44,7 +44,7 @@ public class Course extends BaseEntity{
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private int capacity;
-	private int countUser;
+	private int countUser = 0;
 
 	@OneToMany(mappedBy = "course",cascade=CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
 	private List<Content> contents;
@@ -62,6 +62,7 @@ public class Course extends BaseEntity{
 	public void addUsertoCourse(User user) {
 		enrolledUsers.add(user);
 	}
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Admin admin;

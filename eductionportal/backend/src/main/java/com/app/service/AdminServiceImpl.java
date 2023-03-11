@@ -103,14 +103,18 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public void removeStudentFromCourse(Long courseId, Long studentId) {
-        Course course = courseRepo.findById(courseId).orElseThrow(() -> new EntityNotFound("Course not found with id " + courseId));
-        User student = userRepo.findById(studentId).orElseThrow(() -> new EntityNotFound("Student not found with id " + studentId));
-        if (!course.getEnrolledUsers().contains(student)) {
-            throw new EntityNotFound("Student is not enrolled in this course");
-        }
-        course.getEnrolledUsers().remove(student);
-        course.setCountUser(course.getCountUser() - 1);
-        courseRepo.save(course);
-    }
+	public void removeUserFromCourse(Long courseId, Long userId) {
+	    Course course = courseRepo.findById(courseId).orElseThrow(()-> new EntityNotFound("Course Not Found"));;
+	    User user = userRepo.findById(userId).orElseThrow(()-> new EntityNotFound("User Not Found"));
+//	    if (!admin.getCourses().contains(course)) {
+//	        throw new IllegalArgumentException("Admin does not have access to the course");
+//	    }
+	    if (!course.getEnrolledUsers().contains(user)) {
+	        throw new IllegalArgumentException("User is not enrolled in the course");
+	    }
+	    course.getEnrolledUsers().remove(user);
+	    user.getEnrolledCourses().remove(course);
+	    course.setCountUser(course.getCountUser() - 1);
+	}
+
 }

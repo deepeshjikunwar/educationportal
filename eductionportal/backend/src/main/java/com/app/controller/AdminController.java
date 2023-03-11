@@ -93,9 +93,9 @@ public class AdminController {
 	}
 
 	//delete a student from a particular course
-	@DeleteMapping("/courses/{courseId}/students/{studentId}")
-	public ResponseEntity<?> removeStudentFromCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
-		adminService.removeStudentFromCourse(courseId, studentId);
-		return ResponseEntity.ok().build();
+	@DeleteMapping("{courseId}/users/{userId}")
+	public ResponseEntity<?> removeUserFromCourse(@PathVariable Long courseId, @PathVariable Long userId) {
+	    adminService.removeUserFromCourse(courseId, userId);
+	    return ResponseEntity.ok().build();
 	}
 }

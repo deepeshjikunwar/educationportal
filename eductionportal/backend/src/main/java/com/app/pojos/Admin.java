@@ -41,4 +41,7 @@ public class Admin extends BaseEntity {
 		return course;
 	}
 	
+	@OneToMany(mappedBy = "admin",cascade=CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
+	private List<Query> resolvedQueries;
+	
 }

@@ -19,15 +19,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.dao.ContentRepository;
 import com.app.dto.AdminLogin;
 import com.app.dto.ErrorResponse;
+import com.app.dto.QueryDTO;
 import com.app.dto.ResponseDTO;
 import com.app.dto.UserLogin;
 import com.app.dto.UserSignup;
 import com.app.pojos.Admin;
 import com.app.pojos.Course;
+import com.app.pojos.Query;
 import com.app.pojos.User;
 import com.app.pojos.Visit;
 import com.app.service.AssignmentService;
 import com.app.service.CourseService;
+import com.app.service.QueryService;
 import com.app.service.UserService;
 import com.app.service.VisitService;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -48,6 +51,8 @@ public class UserController {
 	private CourseService courseService;
 	@Autowired
 	private AssignmentService assignmentService;
+	@Autowired
+	private QueryService queryService;
 
 	public UserController() {
 		System.out.println("in ctor"+ getClass().getName());
@@ -172,4 +177,14 @@ public class UserController {
 		List<Course> courses = userService.getAllNotEnrolledCourses(userId);
 		return ResponseEntity.ok().body(courses);
 	}
+	//method to add a query
+	@PostMapping("/addQuery")
+    public Query addQuery(@RequestBody QueryDTO query) {
+        return queryService.saveQuery(query);
+    }
+	//method to get a query by id
+	@GetMapping("/findQuery/{queryId}")
+    public Query getQueryById(@PathVariable Long queryId) {
+        return queryService.getQueryById(queryId);
+    }
 }

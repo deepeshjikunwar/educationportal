@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,12 +22,15 @@ import com.app.dto.AdminLogin;
 import com.app.dto.AdminSignup;
 import com.app.dto.UserDTO;
 import com.app.dto.AssignmentDTO;
+import com.app.dto.ResolveQueryDTO;
 import com.app.exception.EntityNotFound;
 import com.app.pojos.Admin;
 import com.app.pojos.Course;
+import com.app.pojos.Query;
 import com.app.pojos.User;
 import com.app.service.AdminService;
 import com.app.service.AssignmentService;
+import com.app.service.QueryService;
 
 @RestController
 @RequestMapping("/admin")
@@ -36,6 +40,8 @@ public class AdminController {
 	private AdminService adminService;
 	@Autowired
 	private AssignmentService assignmentService;
+	@Autowired
+	private QueryService queryService;
 
 
 	public AdminController() {
@@ -91,17 +97,47 @@ public class AdminController {
 	public ResponseEntity<?> createAssignmentByCourseId(@RequestBody AssignmentDTO transientAssignment,@PathVariable Long courseId){
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(assignmentService.addAssignmentByCourseId(transientAssignment,courseId));
 	}
-	
+
 	//method to delete a assignent
 	@DeleteMapping("/course/{courseId}/assignment/{assignmentId}")
-    public void deleteAssignment(@PathVariable Long courseId, @PathVariable Long assignmentId) {
+	public void deleteAssignment(@PathVariable Long courseId, @PathVariable Long assignmentId) {
 		assignmentService.deleteAssignmentFromCourse(courseId, assignmentId);
-    }
+	}
 
 	//delete a student from a particular course
 	@DeleteMapping("{courseId}/users/{userId}")
 	public ResponseEntity<?> removeUserFromCourse(@PathVariable Long courseId, @PathVariable Long userId) {
-	    adminService.removeUserFromCourse(courseId, userId);
-	    return ResponseEntity.ok().build();
+		adminService.removeUserFromCourse(courseId, userId);
+		return ResponseEntity.ok().build();
+	}
+
+	//method to get all query
+	@GetMapping("/getAllQuery")
+	public List<Query> getAllQueries() {
+		return queryService.getAllQueries();
+	}
+
+	//method to get all resolved query
+	@GetMapping("/resolved")
+	public List<Query> getResolvedQueries() {
+		return queryService.getResolvedQueries();
+	}
+
+	//method to get all non resolved query
+	@GetMapping("/notResolved")
+	public List<Query> getNotResolvedQueries() {
+		return queryService.getNonResolvedQueries();
+	}
+
+	//method to resolve a query
+	@PutMapping("/resolveQuery/{queryId}")
+	public Query resolveQuery(@PathVariable Long queryId, @RequestBody ResolveQueryDTO resolvedQuery) {
+		return queryService.resolveQuery(queryId, resolvedQuery);
+	}
+
+	//method to delete a query
+	@DeleteMapping("/deleteQuery/{queryId}")
+	public void deleteQuery(@PathVariable Long queryId) {
+		queryService.deleteQuery(queryId);
 	}
 }

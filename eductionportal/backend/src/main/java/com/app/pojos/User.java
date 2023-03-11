@@ -39,6 +39,10 @@ public class User extends BaseEntity {
 	@JsonIgnore
 	private List<Visit> visits;
 	
+	@OneToMany(mappedBy = "user",cascade=CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
+	@JsonIgnore
+	private List<Query> queries;
+	
 	public User enrollIntoCurrentCourse(Course course) {
 		enrolledCourses.add(course);
 		course.setCountUser(course.getCountUser()+1);

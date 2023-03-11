@@ -24,7 +24,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 	private AssignmentRepository assignmentRepo;
 	@Override
 	public Assignment addAssignmentByCourseId(AssignmentDTO transientAssignment, Long courseId) {
-	    Course existingCourse = courseRepo.findById(courseId).orElseThrow(()-> new EntityNotFound("No Such Course Exist with ID: " +courseId ));
+		Course existingCourse = courseRepo.findById(courseId).orElseThrow(()-> new EntityNotFound("No Such Course Exist with ID: " +courseId ));
 		Assignment assignment = new Assignment();
 		assignment.setTitle(transientAssignment.getTitle());
 		assignment.setDescription(transientAssignment.getDescription());
@@ -35,6 +35,14 @@ public class AssignmentServiceImpl implements AssignmentService {
 	@Override
 	public List<Assignment> getAllAssignmentsByCourseId(Long courseId) {
 		return assignmentRepo.findAllAssignmentByCourseId(courseId);
+	}
+
+	@Override
+	public void deleteAssignmentFromCourse(Long courseId, Long assignmentId) {
+		Course course = courseRepo.findCourseById(courseId);
+		Assignment assignment = assignmentRepo.findAssignmentById(assignmentId);
+		course.getAssignments().remove(assignment);
+		courseRepo.save(course);
 	}
 
 }

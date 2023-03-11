@@ -22,4 +22,7 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
 	@Modifying
 	@Query("UPDATE Course c SET c.enrolledUsers = :enrolledUsers, c.countUser = :countUser WHERE c.id = :courseId")
 	void deleteStudentFromCourse(@Param("courseId") Long courseId, @Param("enrolledUsers") List<User> enrolledUsers, @Param("countUser") int countUser);
+	
+	@Query("SELECT c FROM Course c LEFT JOIN FETCH c.assignments WHERE c.id = :courseId")
+    Course findCourseById(@Param("courseId") Long courseId);
 }

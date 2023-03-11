@@ -91,6 +91,12 @@ public class AdminController {
 	public ResponseEntity<?> createAssignmentByCourseId(@RequestBody AssignmentDTO transientAssignment,@PathVariable Long courseId){
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(assignmentService.addAssignmentByCourseId(transientAssignment,courseId));
 	}
+	
+	//method to delete a assignent
+	@DeleteMapping("/course/{courseId}/assignment/{assignmentId}")
+    public void deleteAssignment(@PathVariable Long courseId, @PathVariable Long assignmentId) {
+		assignmentService.deleteAssignmentFromCourse(courseId, assignmentId);
+    }
 
 	//delete a student from a particular course
 	@DeleteMapping("{courseId}/users/{userId}")

@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import './App.css';
+// import './App.css';
 import Login from './Components/Login';
 import Header from './Components/Header';
 import SignupForm from './Components/SignupForm';
@@ -26,6 +26,7 @@ import AvailableCourses from './Components/AvailableCourses';
 import CourseUser from './Components/CourseUser';
 import CourseStudent from './Components/CourseStudent';
 import CodeEditor from './Components/CodeEditor';
+import { Col, Row } from 'antd';
 
 function App() {
   // toast.configure();
@@ -35,10 +36,14 @@ function App() {
   // toast('hello')
   console.log("In admin : "+auth);
   return (
-    <div className="App">
+    <>
+    <Row>
+      <Col span={24}>
       <Header />
-      <main>
-        
+      </Col>
+    </Row>  
+    <Row>
+      <Col span={24}>
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/login_user' element={<Login />} />
@@ -70,10 +75,11 @@ function App() {
         <Route path='/addCourse' element={<CourseForm />}  /> 
 
       </Routes>
-      </main>
+      </Col>
+      </Row>      
       {/* <Footer /> */}
       <ToastContainer></ToastContainer>
-    </div>
+    </>
   );
 }
 

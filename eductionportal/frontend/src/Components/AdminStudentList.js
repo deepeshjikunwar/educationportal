@@ -127,7 +127,7 @@ function AdminStudentList() {
     };
 
 
-    return <Table style={{width:1200, marginTop:100}} pagination= { { pageSizeOptions: ['5', '10'], showSizeChanger: true}}
+    return <Table style={{width:1200}} pagination= { { pageSizeOptions: ['5', '10'], showSizeChanger: true}}
       columns={columns} dataSource={students} onChange={onChange} />
  
 

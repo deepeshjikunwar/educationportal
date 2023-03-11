@@ -63,7 +63,7 @@ function AdminDashboard() {
       minHeight: 120,
       lineHeight: '20px',
       width:1200,
-      marginLeft:120,
+      marginLeft:180,
       color: '#fff',
       
       backgroundColor: '#fff',}} className="course">

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,7 +36,7 @@ public class AdminController {
 	private AdminService adminService;
 	@Autowired
 	private AssignmentService assignmentService;
-	
+
 
 	public AdminController() {
 		System.out.println("in ctor"+ getClass().getName());
@@ -68,18 +69,18 @@ public class AdminController {
 
 	@GetMapping("/{adminId}/courses")
 	public ResponseEntity<?> getCoursesByAdminId(@PathVariable Long adminId) {
-	    return  ResponseEntity.status(HttpStatus.CREATED).body(adminService.findAllCourseByAdminId(adminId));
+		return  ResponseEntity.status(HttpStatus.CREATED).body(adminService.findAllCourseByAdminId(adminId));
 	}
-	
+
 	//method to get a list of student enrolled in a course by a particular admin
 	@GetMapping("/{adminId}/courses/{courseId}/users")
-    public List<UserDTO> getUsersEnrolledInCourseAddedByAdmin(
-        @PathVariable("adminId") Long adminId,
-        @PathVariable("courseId") Long courseId) {
-        List<UserDTO> userDTOs = adminService.getUsersEnrolledInCourseAddedByAdmin(adminId, courseId);
-        return userDTOs;
-    }
-	
+	public List<UserDTO> getUsersEnrolledInCourseAddedByAdmin(
+			@PathVariable("adminId") Long adminId,
+			@PathVariable("courseId") Long courseId) {
+		List<UserDTO> userDTOs = adminService.getUsersEnrolledInCourseAddedByAdmin(adminId, courseId);
+		return userDTOs;
+	}
+
 	//method to get a course by Id
 	@GetMapping("/course/{courseId}")
 	public ResponseEntity<?> getCourseById(@PathVariable Long courseId){
@@ -89,5 +90,12 @@ public class AdminController {
 	@PostMapping("/course/{courseId}/addAssignment")
 	public ResponseEntity<?> createAssignmentByCourseId(@RequestBody AssignmentDTO transientAssignment,@PathVariable Long courseId){
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(assignmentService.addAssignmentByCourseId(transientAssignment,courseId));
+	}
+
+	//delete a student from a particular course
+	@DeleteMapping("/courses/{courseId}/students/{studentId}")
+	public ResponseEntity<?> removeStudentFromCourse(@PathVariable Long courseId, @PathVariable Long studentId) {
+		adminService.removeStudentFromCourse(courseId, studentId);
+		return ResponseEntity.ok().build();
 	}
 }

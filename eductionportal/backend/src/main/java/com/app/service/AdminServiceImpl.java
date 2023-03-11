@@ -101,4 +101,16 @@ public class AdminServiceImpl implements AdminService {
 	public Course findCourseByCourseId(Long courseId) {
 		return courseRepo.findById(courseId).orElseThrow(()-> new EntityNotFound("Course Not Found"));
 	}
+	
+	@Override
+	public void removeStudentFromCourse(Long courseId, Long studentId) {
+        Course course = courseRepo.findById(courseId).orElseThrow(() -> new EntityNotFound("Course not found with id " + courseId));
+        User student = userRepo.findById(studentId).orElseThrow(() -> new EntityNotFound("Student not found with id " + studentId));
+        if (!course.getEnrolledUsers().contains(student)) {
+            throw new EntityNotFound("Student is not enrolled in this course");
+        }
+        course.getEnrolledUsers().remove(student);
+        course.setCountUser(course.getCountUser() - 1);
+        courseRepo.save(course);
+    }
 }

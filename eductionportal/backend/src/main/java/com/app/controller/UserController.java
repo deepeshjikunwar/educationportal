@@ -23,6 +23,7 @@ import com.app.dto.ResponseDTO;
 import com.app.dto.UserLogin;
 import com.app.dto.UserSignup;
 import com.app.pojos.Admin;
+import com.app.pojos.Course;
 import com.app.pojos.User;
 import com.app.pojos.Visit;
 import com.app.service.AssignmentService;
@@ -106,21 +107,21 @@ public class UserController {
 	}
 
 	//add REST API endpoint : to update a user by id
-//	@PutMapping("/{userId}")
-//	public ResponseEntity<?> updateUserDetails(@RequestBody User detachedUser, @PathVariable Long userId){
-//		System.out.println("in update user" + detachedUser + " " + userId);
-//		try {
-//			//invoke service layer method for user details updation
-//			User existingUser = userService.getDetails(userId);
-//			//valid user, invoke setters to update the state
-//			//existingUser : user details fetched from DB(stale)
-//			//detachedUser : updated user details from frontend
-//			return ResponseEntity.ok(userService.updateDetails(detachedUser));
-//		}catch(RuntimeException e) {
-//			System.out.println("err in get" + e);
-//			return new ResponseEntity<>(new ErrorResponse("Fetchin user details failed", e.getMessage()),HttpStatus.BAD_REQUEST);
-//		}
-//	}
+	//	@PutMapping("/{userId}")
+	//	public ResponseEntity<?> updateUserDetails(@RequestBody User detachedUser, @PathVariable Long userId){
+	//		System.out.println("in update user" + detachedUser + " " + userId);
+	//		try {
+	//			//invoke service layer method for user details updation
+	//			User existingUser = userService.getDetails(userId);
+	//			//valid user, invoke setters to update the state
+	//			//existingUser : user details fetched from DB(stale)
+	//			//detachedUser : updated user details from frontend
+	//			return ResponseEntity.ok(userService.updateDetails(detachedUser));
+	//		}catch(RuntimeException e) {
+	//			System.out.println("err in get" + e);
+	//			return new ResponseEntity<>(new ErrorResponse("Fetchin user details failed", e.getMessage()),HttpStatus.BAD_REQUEST);
+	//		}
+	//	}
 	@PutMapping("/{userId}")
 	public ResponseEntity<?> updateUser(@RequestBody UserSignup transientUser,@PathVariable Long userId) {
 		//invoke service layer's method for saving user details
@@ -157,5 +158,18 @@ public class UserController {
 	@GetMapping("/courses/{courseId}/getAssignment")
 	public ResponseEntity<?> getAllAssignment(@PathVariable Long courseId){
 		return ResponseEntity.status(HttpStatus.OK).body(assignmentService.getAllAssignmentsByCourseId(courseId));
+	}
+	//method to get all enrolled courses
+	@GetMapping("/{userId}/enrolled-courses")
+	public ResponseEntity<List<Course>> getAllEnrolledCourses(@PathVariable Long userId) {
+		List<Course> courses = userService.getAllEnrolledCourses(userId);
+		return ResponseEntity.ok().body(courses);
+	}
+	
+	//method to get all not enrolled courses
+	@GetMapping("/{userId}/not-enrolled-courses")
+	public ResponseEntity<List<Course>> getAllNotEnrolledCourses(@PathVariable Long userId) {
+		List<Course> courses = userService.getAllNotEnrolledCourses(userId);
+		return ResponseEntity.ok().body(courses);
 	}
 }

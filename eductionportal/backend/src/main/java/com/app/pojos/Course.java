@@ -44,6 +44,7 @@ public class Course extends BaseEntity{
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private int capacity;
+	private int countUser;
 
 	@OneToMany(mappedBy = "course",cascade=CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
 	private List<Content> contents;

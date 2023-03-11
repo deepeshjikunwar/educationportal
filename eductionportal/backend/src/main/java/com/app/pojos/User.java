@@ -40,6 +40,7 @@ public class User extends BaseEntity {
 	
 	public User enrollIntoCurrentCourse(Course course) {
 		enrolledCourses.add(course);
+		course.setCountUser(course.getCountUser()+1);
 		course.addUsertoCourse(this);
 		return this;
 	}

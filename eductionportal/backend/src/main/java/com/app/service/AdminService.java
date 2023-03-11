@@ -21,5 +21,7 @@ Optional<Admin> findById(Long adminId);
 List<Course> findAllCourseByAdminId(Long adminId);
 List<UserDTO> getUsersEnrolledInCourseAddedByAdmin(Long adminId, Long courseId);
 Course findCourseByCourseId(Long courseId);
+void removeUserFromCourse(Long courseId, Long userId);
+
 
 }

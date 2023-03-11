@@ -3,6 +3,7 @@ package com.app.service;
 import java.util.List;
 
 import com.app.dto.UserSignup;
+import com.app.pojos.Course;
 import com.app.pojos.User;
 
 public interface UserService {
@@ -15,5 +16,6 @@ public interface UserService {
 	String updateDetails(User existingUserUser,UserSignup transientUser);
 	
 	User enrollIntoCourse(Long userId,Long courseId);
-	
+	List<Course> getAllEnrolledCourses(Long userId);
+	List<Course> getAllNotEnrolledCourses(Long userId);
 }

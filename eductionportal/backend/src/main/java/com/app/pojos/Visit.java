@@ -17,7 +17,7 @@ import lombok.Setter;
 @Entity
 public class Visit extends BaseEntity {
 	
-@ManyToOne(fetch = FetchType.EAGER)
+@ManyToOne(fetch = FetchType.LAZY)
 @JsonIgnore
 private User user;
 

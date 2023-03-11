@@ -8,4 +8,6 @@ import com.app.pojos.Assignment;
 public interface AssignmentService {
 	Assignment addAssignmentByCourseId(AssignmentDTO transientAssignment,Long courseId);
 	List<Assignment> getAllAssignmentsByCourseId(Long courseId);
+	
+	void deleteAssignmentFromCourse(Long courseId, Long assignmentId);
 }

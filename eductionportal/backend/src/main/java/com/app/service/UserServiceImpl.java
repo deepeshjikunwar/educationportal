@@ -63,4 +63,18 @@ public class UserServiceImpl implements UserService {
 		User user = userRepo.findById(userId).orElseThrow(()-> new EntityNotFound("User doesn't exist"));
 		return user.enrollIntoCurrentCourse(course);
 	}	
+	
+	@Override
+	public List<Course> getAllEnrolledCourses(Long userId) {
+        User user = userRepo.findById(userId).orElseThrow(() -> new EntityNotFound("User not found"));
+        return user.getEnrolledCourses();
+    }
+
+	@Override
+    public List<Course> getAllNotEnrolledCourses(Long userId) {
+        User user = userRepo.findById(userId).orElseThrow(() -> new EntityNotFound("User not found"));
+        List<Course> allCourses = courseRepo.findAll();
+        allCourses.removeAll(user.getEnrolledCourses());
+        return allCourses;
+    }
 }

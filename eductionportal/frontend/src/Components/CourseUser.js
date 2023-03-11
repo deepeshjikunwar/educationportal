@@ -70,6 +70,30 @@ console.log("In Get Data of Course :"+e)
 }
  }
 // Ant Design Table data
+const columns2 = [
+  {
+    title: 'Question',
+    dataIndex: 'description',
+
+    onFilter: (value, record) => record.name.indexOf(value) === 0,
+    sorter: (a, b) => (a.firstName).toLowerCase() < (b.firstName).toLowerCase(),
+    sortDirections: ['descend'],
+  },
+  {
+    title: 'Language',
+    dataIndex: 'title',
+
+    sorter: (a, b) => a.lastName < b.lastName,
+    sortDirections: ['descend'],
+  },
+  {
+    title: 'Solve',
+    dataIndex: '',
+    key: 'x',
+  
+    render: (_,record) => <Button onClick={()=>{navigate(`code_editor/`+record.id)}} ></Button>,
+  },                      //c<Checkbox onChange={onChange}>Checkbox</Checkbox>;
+];
 const columns = [
   {
     title: 'Topic',
@@ -121,6 +145,13 @@ const onChange = (pagination, filters, sorter, extra) => {
       <p>Capacity: {course?.capacity}</p>
     </Card>
 
+    <Table
+    style={{
+      width:1200,
+      alignItems:'center'
+    }}
+    pagination={{ pageSizeOptions: ['5', '10'], showSizeChanger: true }}
+      columns={columns} dataSource={content} onChange={onChange} />
     <Table
     style={{
       width:1200,

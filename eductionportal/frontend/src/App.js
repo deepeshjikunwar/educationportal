@@ -27,6 +27,7 @@ import CourseUser from './Components/CourseUser';
 import CourseStudent from './Components/CourseStudent';
 import CodeEditor from './Components/CodeEditor';
 import { Col, Row } from 'antd';
+import AddAssignmentForm from './Components/AddAssignmentForm';
 
 function App() {
   // toast.configure();
@@ -58,7 +59,7 @@ function App() {
             <Route path='available_courses' element={<EnrolledCourse newEnroll={true} />} />
             <Route path='course/:id' element={<CourseUser />} />
             <Route path='course/enroll/:id' element={<CourseUser isEnroll={true}/>} />
-            <Route path='code_editor' element={<CodeEditor/>} />
+            <Route path='code_editor/:queId' element={<CodeEditor/>} />
         </Route>
         <Route path='/admin_dashboard/' element={<AdminDashboard />} >
             <Route path='students' element={<AdminStudentList />} />
@@ -68,6 +69,7 @@ function App() {
             <Route path='courseStudent' element={<AdminCourseList courses={auth? auth.courses:""} forStudent={true}/>}/>
             <Route path='editStudent/:id' element={<EditStudent />}/>
             <Route path='addCourse' element={<CourseForm />}/>
+            <Route path='addAssignment/:id' element={<AddAssignmentForm />}/>
 
         </Route>
         <Route path ='/edit_student/:id' element={<EditStudent />} />

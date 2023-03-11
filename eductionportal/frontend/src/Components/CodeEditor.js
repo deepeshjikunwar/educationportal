@@ -1,15 +1,20 @@
 import { Button, Card, Layout, Row, Space } from 'antd'
-import React,{useState} from 'react'
+import React,{useContext, useState} from 'react'
 import axios from '../Api/axiosCode'
 import CodeMirror from '@uiw/react-codemirror';
 import { dracula } from '@uiw/codemirror-theme-dracula';
 import { python } from '@codemirror/lang-python';
 import { StreamLanguage } from '@codemirror/language';
+import { useParams } from 'react-router-dom';
+import AuthContext from '../context/AuthProvider';
 
 // import { pythonLanguage } from '@codemirror/lang-python/dist';
 const {Sider, Content} = Layout;
 
 function CodeEditor() {
+  const {id} = useParams();
+  const {auth} = useContext(AuthContext);
+  
     const [code, setCode] = useState('');
     const [output, setOutput] = useState('');
     const [error, setError] = useState('');

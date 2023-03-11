@@ -25,6 +25,7 @@ import EnrolledCourse from './Components/EnrolledCourse';
 import AvailableCourses from './Components/AvailableCourses';
 import CourseUser from './Components/CourseUser';
 import CourseStudent from './Components/CourseStudent';
+import CodeEditor from './Components/CodeEditor';
 
 function App() {
   // toast.configure();
@@ -49,8 +50,10 @@ function App() {
         {/* <Route path='/course' element={<Course />} /> */}
         <Route path='/user_dashboard/' element={<UserDashboard />} >
             <Route path='enrolled_courses' element={<EnrolledCourse />} />
-            <Route path='available_courses' element={<AvailableCourses />} />
+            <Route path='available_courses' element={<EnrolledCourse newEnroll={true} />} />
             <Route path='course/:id' element={<CourseUser />} />
+            <Route path='course/enroll/:id' element={<CourseUser isEnroll={true}/>} />
+            <Route path='code_editor' element={<CodeEditor/>} />
         </Route>
         <Route path='/admin_dashboard/' element={<AdminDashboard />} >
             <Route path='students' element={<AdminStudentList />} />

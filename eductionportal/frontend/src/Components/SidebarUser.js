@@ -9,7 +9,7 @@ function SidebarUser(){
    
     <button className='sidebar-btns' onClick={()=>{navigate('enrolled_courses')}}>Enrolled Course</button><br />
     <button className='sidebar-btns' onClick={()=>{navigate('available_courses')}}>Available Course</button><br />
-    <button className='sidebar-btns'> Progress Report </button>
+    <button className='sidebar-btns' onClick={()=>{navigate('code_editor')}}> Progress Report </button>
     <button className='sidebar-btns' >Notes Course</button>
     </div>
     

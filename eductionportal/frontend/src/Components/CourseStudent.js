@@ -11,10 +11,11 @@ const { Content } = Layout;
 function CourseStudent() {
   const { id } = useParams();
   const { auth } = useContext(AuthContext);
+  
   const BASE_URL_CONTENT = `/admin/${auth.id}/courses/${id}/users`;
-
+  const COURSE_URL = `/admin/course/${id}`
   const navigate = useNavigate()
-  const [enrolledStudents, setEnrolledStudents] = useState();
+  const [enrolledStudents, setEnrolledStudents] = useState(null);
 
   const [content, setContent] = useState(null);
 
@@ -33,10 +34,21 @@ function CourseStudent() {
       // console.log("URL ===="+`/admin/${auth.id}/courses`)
       // alert("Something went wrong in Get Data Course")
     }
+    try {
+      const response = await axios.get(COURSE_URL
+      );
+      console.log("In Get Data of Course by ID" + JSON.stringify(response));
+      setCourse(response.data)
+   
+    } catch (e) {
+      console.log("In Get Data of Course by ID :" + e)
+      // console.log("URL ===="+`/admin/${auth.id}/courses`)
+      // alert("Something went wrong in Get Data Course")
+    }
   }
 
   useEffect(() => {
-    if (course === null) getData();
+    if (enrolledStudents === null) getData();
   })
 
   // Ant Design Table data

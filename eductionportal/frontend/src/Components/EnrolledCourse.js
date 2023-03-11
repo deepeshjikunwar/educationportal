@@ -7,7 +7,7 @@ import AuthContext from '../context/AuthProvider';
 import { toast } from 'react-toastify';
 import { Space } from 'antd';
 
-function EnrolledCourse() {
+function EnrolledCourse({newEnroll}) {
   const USERS_URL = "users/allCourses";
   const { auth } = useContext(AuthContext);
   const navigate = useNavigate()
@@ -50,7 +50,12 @@ function EnrolledCourse() {
     <CourseBox title={"ele.title"} description={"ele.description"} capacity={30} />
     <CourseBox title={"ele.title"} description={"ele.description"} capacity={30} /> */}
     {courses? courses.map( (ele)=>{
-        return <div onClick={()=>{navigate('../course/'+ele.id)}} className="course_box_len"> 
+        return <div onClick={()=>{
+          newEnroll ? 
+          navigate('../course/enroll/'+ele.id) 
+          : 
+          navigate('../course/'+ele.id)}
+        } className="course_box_len"> 
         <CourseBox title={ele.title} description={ele.description} capacity={ele.capacity} /> 
          </div>
     }):null}

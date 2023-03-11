@@ -170,6 +170,7 @@ function Course() {
       width:1200,
       alignItems:'center'
     }}
+    caption="Content List"
     pagination={{ pageSizeOptions: ['5', '10'], showSizeChanger: true }}
       columns={columns} dataSource={content} onChange={onChange} />
     

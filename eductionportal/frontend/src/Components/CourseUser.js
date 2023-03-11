@@ -5,19 +5,20 @@ import { toast } from 'react-toastify';
 import axios from '../Api/axios';
 import AuthContext from '../context/AuthProvider';
 // import '../CSS/Course.css'
-function CourseUser() {
+function CourseUser({isEnroll}) {
     const {id} = useParams();
+    const {auth} = useContext(AuthContext);
     const BASE_URL = '/users/addContent/'+id;
     const BASE_URL_CONTENT = "/admin/course/"+id;
+    const ENROLL_COURSE_URL = `users/${auth.id}/enroll/${id}`
 
-    const {auth} = useContext(AuthContext);
     const navigate = useNavigate()
 
 
 const [content, setContent] = useState(null);
 
 const [course , setCourse] = useState(null);
-
+const [enrollStatus, setEnrollStatus] = useState(false);
 
 const getData = async() => {
   try {
@@ -54,6 +55,20 @@ const onChangeCheck =async (id,checkedValue) => {
     }
   }
 };
+// Enrolling COurse
+
+ const enrollInCourse = async() =>{
+  try {
+    const response = await axios.get(ENROLL_COURSE_URL
+      );
+      console.log("In Get Data of Course"+JSON.stringify(response));
+      setEnrollStatus(true)
+}catch(e){
+console.log("In Get Data of Course :"+e)
+// console.log("URL ===="+`/admin/${auth.id}/courses`)
+// alert("Something went wrong in Get Data Course")
+}
+ }
 // Ant Design Table data
 const columns = [
   {
@@ -114,6 +129,10 @@ const onChange = (pagination, filters, sorter, extra) => {
     pagination={{ pageSizeOptions: ['5', '10'], showSizeChanger: true }}
       columns={columns} dataSource={content} onChange={onChange} />
     
+    {isEnroll ? 
+    <Button onClick={enrollInCourse}>{enrollStatus ? 'Enrolled': 'Enroll'}</Button> 
+    : null}
+
   </Space>
   )
 }

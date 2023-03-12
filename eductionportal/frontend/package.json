@@ -3,7 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@codemirror/lang-cpp": "^6.0.2",
+    "@codemirror/lang-css": "^6.1.1",
+    "@codemirror/lang-html": "^6.4.2",
+    "@codemirror/lang-java": "^6.0.1",
+    "@codemirror/lang-javascript": "^6.1.4",
     "@codemirror/lang-python": "^6.1.2",
+    "@codemirror/lang-sql": "^6.4.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -21,7 +27,6 @@
     "react-router-dom": "^6.8.2",
     "react-scripts": "^5.0.1",
     "react-toastify": "^9.1.1",
-    "reactstrap": "^9.1.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

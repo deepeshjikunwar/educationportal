@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import axios from '../Api/axios';
 // import '../CSS/AdminDashboard.css'
 import CourseForm from './CourseForm';
 import CourseBox from './CourseBox';
 import Sidebar from './Sidebar'
-import { Layout } from 'antd'
+import { Drawer, Layout, FloatButton } from 'antd'
+import AuthContext from '../context/AuthProvider';
+
 const { Sider, Content } = Layout;
+
 function AdminDashboard() {
 
   const USERS_URL = "users";
-
+  // const { drawerStatus, setDrawerStatus } = useContext(AuthContext);
   const navigate = useNavigate();
   // state to hold the list of students
   const [students, setStudents] = useState([
@@ -19,7 +22,14 @@ function AdminDashboard() {
     { id: 3, firstName: 'Bob', lastName: 'Smith', email: 22 },
   ]);
 
+  const [drawerStatus, setDrawerStatus] = useState(false);
 
+  const onClose = () => {
+    setDrawerStatus(false);
+  };
+  const onOpen = () => {
+    setDrawerStatus(true);
+  }
 
   const getData = async () => {
 
@@ -75,7 +85,12 @@ function AdminDashboard() {
           {/* <button onClick={() => { navigate("/courses") }}>Add Course</button> */}
           {/* </div> */}
       
-   
+        <Drawer title="Queries Section" placement="right" onClose={onClose} open={drawerStatus}>
+        <p>Check Queries</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Drawer> 
+      <FloatButton onClick={onOpen}>Ask Queries</FloatButton>
     </Layout>
 
 

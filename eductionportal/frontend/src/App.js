@@ -78,7 +78,7 @@ function App() {
 
       </Routes>
       </Col>
-      </Row>      
+      </Row>     
       {/* <Footer /> */}
       <ToastContainer></ToastContainer>
     </>

@@ -3,11 +3,16 @@ import React,{useContext, useState} from 'react'
 import axios from '../Api/axiosCode'
 import CodeMirror from '@uiw/react-codemirror';
 import { dracula } from '@uiw/codemirror-theme-dracula';
-import { python } from '@codemirror/lang-python';
 import { StreamLanguage } from '@codemirror/language';
 import { useParams } from 'react-router-dom';
 import AuthContext from '../context/AuthProvider';
-
+import { python } from '@codemirror/lang-python';
+import {cpp} from '@codemirror/lang-cpp'
+import { java } from '@codemirror/lang-java';
+import { javascript } from '@codemirror/lang-javascript';
+import { html } from '@codemirror/lang-html';
+import { css } from '@codemirror/lang-css';
+import { sql } from '@codemirror/lang-sql';
 // import { pythonLanguage } from '@codemirror/lang-python/dist';
 const {Sider, Content} = Layout;
 
@@ -18,6 +23,18 @@ function CodeEditor() {
     const [code, setCode] = useState('');
     const [output, setOutput] = useState('');
     const [error, setError] = useState('');
+    const [codeLang, setCodeLang] = useState('');
+
+    var langDict = {
+      "python" : python(),
+      "cpp" : cpp(),
+      "sql":sql(),
+      "css":css(),
+      "html":html(),
+      "javascript":javascript(),
+      "java":java()
+    }
+
     const show =async () =>{
       try {
     
@@ -65,7 +82,7 @@ function CodeEditor() {
           theme={dracula}
           maxWidth='95%'
         //   style={{textAlign:'left'}}
-          extensions={[python({ jsx: true })]}
+          extensions={langDict['python']}
     //   extensions={[javascript({ jsx: true })]}
       onChange={(value, viewUpdate) => {
         console.log('value:', value);

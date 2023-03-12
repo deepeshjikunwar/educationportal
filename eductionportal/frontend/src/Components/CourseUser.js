@@ -10,7 +10,8 @@ function CourseUser({isEnroll}) {
     const {auth} = useContext(AuthContext);
     const BASE_URL = '/users/addContent/'+id;
     const BASE_URL_CONTENT = "/admin/course/"+id;
-    const ENROLL_COURSE_URL = `users/${auth.id}/enroll/${id}`
+    const ENROLL_COURSE_URL = `users/${auth.id}/enroll/`+id;
+    const ASSIGNMENT_URL = `users/courses/${id}/getAssignment`
 
     const navigate = useNavigate()
 
@@ -19,6 +20,7 @@ const [content, setContent] = useState(null);
 
 const [course , setCourse] = useState(null);
 const [enrollStatus, setEnrollStatus] = useState(false);
+const [assignment, setAssignment] = useState(null);
 
 const getData = async() => {
   try {
@@ -35,7 +37,10 @@ console.log("In Get Data of Course :"+e)
 }
 const MARK_URL = 'users/'
 useEffect(() => {
-  if(course === null) getData();
+  if(course === null) {
+    getData() 
+    getAssignment()
+  };
 })
 const onChangeCheck =async (id,checkedValue) => {
   try {
@@ -70,6 +75,18 @@ console.log("In Get Data of Course :"+e)
 }
  }
 // Ant Design Table data
+const getAssignment = async() => {
+  try {
+    const response = await axios.get(ASSIGNMENT_URL
+      );
+      console.log("In Get Assignment of Course"+JSON.stringify(response));
+      setAssignment(response.data)
+}catch(e){
+console.log("In Get Data of Course :"+e)
+// console.log("URL ===="+`/admin/${auth.id}/courses`)
+// alert("Something went wrong in Get Data Course")
+}
+}
 const columns2 = [
   {
     title: 'Question',
@@ -91,7 +108,7 @@ const columns2 = [
     dataIndex: '',
     key: 'x',
   
-    render: (_,record) => <Button onClick={()=>{navigate(`code_editor/`+record.id)}} ></Button>,
+    render: (_,record) => <Button onClick={()=>{navigate(`../code_editor/`+record.id)}} ></Button>,
   },                      //c<Checkbox onChange={onChange}>Checkbox</Checkbox>;
 ];
 const columns = [
@@ -158,7 +175,7 @@ const onChange = (pagination, filters, sorter, extra) => {
       alignItems:'center'
     }}
     pagination={{ pageSizeOptions: ['5', '10'], showSizeChanger: true }}
-      columns={columns} dataSource={content} onChange={onChange} />
+      columns={columns2} dataSource={assignment} onChange={onChange} />
     
     {isEnroll ? 
     <Button onClick={enrollInCourse}>{enrollStatus ? 'Enrolled': 'Enroll'}</Button> 

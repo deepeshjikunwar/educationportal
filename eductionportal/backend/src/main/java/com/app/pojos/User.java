@@ -49,5 +49,11 @@ public class User extends BaseEntity {
 		course.addUsertoCourse(this);
 		return this;
 	}
+	
+	public Query addNewQuery(Query query) {
+		queries.add(query);
+		query.setUser(this);
+		return query;
+	}
 }
 

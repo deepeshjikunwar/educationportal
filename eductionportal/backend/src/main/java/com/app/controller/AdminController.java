@@ -130,9 +130,9 @@ public class AdminController {
 	}
 
 	//method to resolve a query
-	@PutMapping("/resolveQuery/{queryId}")
-	public Query resolveQuery(@PathVariable Long queryId, @RequestBody ResolveQueryDTO resolvedQuery) {
-		return queryService.resolveQuery(queryId, resolvedQuery);
+	@PutMapping("{adminId}/resolveQuery/{queryId}")
+	public Query resolveQuery(@PathVariable Long adminId,@PathVariable Long queryId, @RequestBody ResolveQueryDTO resolvedQuery) {
+		return queryService.resolveQuery(adminId,queryId, resolvedQuery);
 	}
 
 	//method to delete a query

@@ -45,4 +45,9 @@ public class AssignmentServiceImpl implements AssignmentService {
 		courseRepo.save(course);
 	}
 
+	@Override
+	public Assignment getAssignmentById(Long assignmentId) {
+		return assignmentRepo.findById(assignmentId).orElseThrow(()->new EntityNotFound("Assignment doesnot exist"));
+	}
+
 }

@@ -1,5 +1,5 @@
 package com.app.service;
 
 public interface ContentService {
-	void deleteContentById(Long contentId);
+	void deleteContentById(Long courseId,Long contentId);
 }

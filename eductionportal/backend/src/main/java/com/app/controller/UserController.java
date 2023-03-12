@@ -199,4 +199,19 @@ public class UserController {
 	public Assignment getAssignmentById(@PathVariable Long assignmentId) {
 		return assignmentService.getAssignmentById(assignmentId);
 	}
+	//method to get visit by userId and contentId
+	@GetMapping("{userId}/visited/{contentId}")
+	public Visit getVisited(@PathVariable Long userId,@PathVariable Long contentId){
+		return visitService.getVisited(userId, contentId);
+	}
+	//method to get all visited by userId and courseId
+	@GetMapping("/{userId}/courses/{courseId}/visits")
+    public ResponseEntity<List<Visit>> getAllVisitsByUserIdAndCourseId(
+            @PathVariable Long userId, @PathVariable Long courseId) {
+        List<Visit> visits = userService.getAllVisitsByUserIdAndCourseId(userId, courseId);
+        if (visits.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(visits);
+    }
 }

@@ -1,5 +1,6 @@
 package com.app.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,10 @@ import com.app.dao.UserRepository;
 import com.app.dto.UserSignup;
 import com.app.exception.EntityNotFound;
 import com.app.exception.UserHandlingException;
+import com.app.pojos.Content;
 import com.app.pojos.Course;
 import com.app.pojos.User;
+import com.app.pojos.Visit;
 
 @Service
 @Transactional
@@ -76,5 +79,22 @@ public class UserServiceImpl implements UserService {
         List<Course> allCourses = courseRepo.findAll();
         allCourses.removeAll(user.getEnrolledCourses());
         return allCourses;
+    }
+	
+	public List<Visit> getAllVisitsByUserIdAndCourseId(Long userId, Long courseId) {
+        User user = getDetails(userId);
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+        List<Visit> visits = new ArrayList<>();
+        for (Course course : user.getEnrolledCourses()) {
+            if (course.getId() == courseId) {
+                for (Content content : course.getContents()) {
+                    visits.addAll(content.getVisits());
+                }
+                break;
+            }
+        }
+        return visits;
     }
 }

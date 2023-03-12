@@ -75,6 +75,5 @@ public class Course extends BaseEntity{
 	    assignments.add(assignment);
 	    assignment.setCourse(this);
 	    return assignment;
-	}
-	
+	}	
 }

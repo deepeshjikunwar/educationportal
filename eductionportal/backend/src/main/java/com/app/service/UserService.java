@@ -5,6 +5,7 @@ import java.util.List;
 import com.app.dto.UserSignup;
 import com.app.pojos.Course;
 import com.app.pojos.User;
+import com.app.pojos.Visit;
 
 public interface UserService {
 	User authenticateUser(String email, String password);
@@ -18,4 +19,5 @@ public interface UserService {
 	User enrollIntoCourse(Long userId,Long courseId);
 	List<Course> getAllEnrolledCourses(Long userId);
 	List<Course> getAllNotEnrolledCourses(Long userId);
+	List<Visit> getAllVisitsByUserIdAndCourseId(Long userId, Long courseId);
 }

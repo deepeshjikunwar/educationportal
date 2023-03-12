@@ -24,6 +24,7 @@ import com.app.dto.ResponseDTO;
 import com.app.dto.UserLogin;
 import com.app.dto.UserSignup;
 import com.app.pojos.Admin;
+import com.app.pojos.Assignment;
 import com.app.pojos.Course;
 import com.app.pojos.Query;
 import com.app.pojos.User;
@@ -178,13 +179,24 @@ public class UserController {
 		return ResponseEntity.ok().body(courses);
 	}
 	//method to add a query
-	@PostMapping("/addQuery")
-    public Query addQuery(@RequestBody QueryDTO query) {
-        return queryService.saveQuery(query);
+	@PostMapping("{userId}/addQuery")
+    public Query addQuery(@RequestBody QueryDTO query, @PathVariable Long userId) {
+        return queryService.saveQuery(query,userId);
     }
 	//method to get a query by id
 	@GetMapping("/findQuery/{queryId}")
     public Query getQueryById(@PathVariable Long queryId) {
         return queryService.getQueryById(queryId);
     }
+	//method to get all query by user id
+	@GetMapping("/{userId}/queries")
+	public List<Query> getQueriesByUserId(@PathVariable Long userId) {
+	    return queryService.getQueriesByUserId(userId);
+	}
+	
+	//method to find assignment by assignment id
+	@GetMapping("/assignment/{assignmentId}")
+	public Assignment getAssignmentById(@PathVariable Long assignmentId) {
+		return assignmentService.getAssignmentById(assignmentId);
+	}
 }

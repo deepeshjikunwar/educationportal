@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,6 +44,13 @@ public class Admin extends BaseEntity {
 	}
 	
 	@OneToMany(mappedBy = "admin",cascade=CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
+	@JsonIgnore
 	private List<Query> resolvedQueries;
+	
+	public Query resolveQuery(Query query) {
+		resolvedQueries.add(query);
+		query.setAdmin(this);
+		return query;
+	}
 	
 }

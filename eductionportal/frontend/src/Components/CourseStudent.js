@@ -13,7 +13,8 @@ function CourseStudent() {
   const { auth } = useContext(AuthContext);
   
   const BASE_URL_CONTENT = `/admin/${auth.id}/courses/${id}/users`;
-  const COURSE_URL = `/admin/course/${id}`
+  const COURSE_URL = `/admin/course/${id}`;
+  const UNENROLL_STUDENT_URL = `admin/${id}/users/${auth.id}`;
   const navigate = useNavigate()
   const [enrolledStudents, setEnrolledStudents] = useState(null);
 
@@ -51,6 +52,22 @@ function CourseStudent() {
     if (enrolledStudents === null) getData();
   })
 
+  const handleUnenrollStudent = async () => {
+    try {
+      const response = await axios.delete(UNENROLL_STUDENT_URL
+      );
+      // setNewTitle('')
+      // setNewContent('')
+      console.log("In Resp of Delete Student : "+ JSON.stringify(response.data));
+      // toast('content Succefuly added !', { autoClose: 200 });
+      getData();
+
+    } catch (e) {
+      console.log(e)
+      // alert("Something went wrong")
+    }
+
+  }
   // Ant Design Table data
   const columns = [
     {
@@ -73,7 +90,7 @@ function CourseStudent() {
       dataIndex: '',
       key: 'x',
     
-      render: (_, record) => <Button onClick={() => { console.log(record.id) }} type="primary" danger ghost>Delete</Button>,
+      render: (_, record) => <Button onClick={() => { handleUnenrollStudent(record.id) }} type="primary" danger ghost>Delete</Button>,
     },
   ];
   const onChange = (pagination, filters, sorter, extra) => {

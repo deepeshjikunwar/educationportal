@@ -1,11 +1,12 @@
-import React,{useContext, useEffect} from 'react'
+import React,{useContext, useEffect, useState} from 'react'
 import CourseBox from './CourseBox'
 // import '../CSS/AdminCourseList.css'
 import { useNavigate } from 'react-router-dom'
 import AuthContext from '../context/AuthProvider';
 import { toast } from 'react-toastify';
 import {  Space } from 'antd';
-function AdminCourseList({ courses, forStudent }) {
+import axios from '../Api/axios';
+function AdminCourseList({forStudent }) {
     // let courses = [32,333];
     const { auth } = useContext(AuthContext);
     const navigate = useNavigate()
@@ -17,7 +18,24 @@ function AdminCourseList({ courses, forStudent }) {
             navigate('../');
         }
     }, [])
+  
+    const [courses, setCourses] = useState();
+    const GET_ALL_COURSE = `admin/${auth?.id}/courses`;
+    const getAllCourses = async() =>{
+        try{
+          const response = await axios.get(GET_ALL_COURSE);
+          console.log("In Get all Courses"+ JSON.stringify(response.data));
+          setCourses(response.data)
+        }
+        catch(err){
+          console.log("In Get Error all Queries of UserDashboard.js"+err);
+        }
+      }
     
+      useEffect(() => {
+        if(courses === null || courses === undefined) getAllCourses();
+      })
+      
 
     // console.log("In Admin Course List : " + JSON.stringify(courses))
     return (

@@ -37,9 +37,10 @@ console.log("In Get Data of Course :"+e)
 }
 const MARK_URL = 'users/'
 useEffect(() => {
-  if(course === null) {
+  if(course === null) { 
     getData() 
     getAssignment()
+    loadCheckedData()
   };
 })
 const onChangeCheck =async (id,checkedValue) => {
@@ -60,14 +61,33 @@ const onChangeCheck =async (id,checkedValue) => {
     }
   }
 };
+// Geting Check Data Load
+const LOAD_CHECKED_URL = `users/${auth?.id}/courses/${id}/visits`
+const [checkedData, setCheckedData] = useState(null); 
+const loadCheckedData= async() => {
+  try {
+    const response = await axios.get(LOAD_CHECKED_URL);
+      console.log("In Get Data of Checked Data"+JSON.stringify(response));
+      setCheckedData(response.data)
+      console.log("Checked Data : "+checkedData);
+  }catch(e){
+  console.log("In Get Data of Checked Data :"+e)
+  // console.log("URL ===="+`/admin/${auth.id}/courses`)
+  // alert("Something went wrong in Get Data Course")
+  }
+}
+
+
 // Enrolling COurse
+
 
  const enrollInCourse = async() =>{
   try {
     const response = await axios.get(ENROLL_COURSE_URL
       );
-      console.log("In Get Data of Course"+JSON.stringify(response));
+      console.log("In Get Data of CourseUser Enroll"+JSON.stringify(response));
       setEnrollStatus(true)
+
 }catch(e){
 console.log("In Get Data of Course :"+e)
 // console.log("URL ===="+`/admin/${auth.id}/courses`)
@@ -133,7 +153,7 @@ const columns = [
     dataIndex: '',
     key: 'x',
   
-    render: (_,record) => <Checkbox onChange={(e)=> {onChangeCheck(record.id,e.target.checked)}} ></Checkbox>,
+    render: (_,record) => <Checkbox  onChange={(e)=> {onChangeCheck(record.id,e.target.checked)}} ></Checkbox>,
   },                      //c<Checkbox onChange={onChange}>Checkbox</Checkbox>;
 ];
 const onChange = (pagination, filters, sorter, extra) => {
@@ -177,9 +197,9 @@ const onChange = (pagination, filters, sorter, extra) => {
     pagination={{ pageSizeOptions: ['5', '10'], showSizeChanger: true }}
       columns={columns2} dataSource={assignment} onChange={onChange} />
     
-    {isEnroll ? 
+    
     <Button onClick={enrollInCourse}>{enrollStatus ? 'Enrolled': 'Enroll'}</Button> 
-    : null}
+    
 
   </Space>
   )

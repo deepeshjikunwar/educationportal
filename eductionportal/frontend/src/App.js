@@ -56,7 +56,7 @@ function App() {
         {/* <Route path='/course' element={<Course />} /> */}
         <Route path='/user_dashboard/' element={<UserDashboard />} >
             <Route path='enrolled_courses' element={<EnrolledCourse />} />
-            <Route path='available_courses' element={<EnrolledCourse newEnroll={true} />} />
+            <Route path='available_courses' element={<AvailableCourses/>} />
             <Route path='course/:id' element={<CourseUser />} />
             <Route path='course/enroll/:id' element={<CourseUser isEnroll={true}/>} />
             <Route path='code_editor/:id' element={<CodeEditor/>} />

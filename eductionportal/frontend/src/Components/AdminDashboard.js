@@ -11,10 +11,12 @@ import AuthContext from '../context/AuthProvider';
 const { Sider, Content } = Layout;
 
 function AdminDashboard() {
+  const { auth } = useContext(AuthContext);
   const {TextArea} = Input;  
   const navigate = useNavigate();
   const QUERY_URL = `users/addQuery`
   const GET_QUERY_URL = `admin/getAllQuery`
+  const RESOLVE_QUERY_URL = `admin/${auth?.id}/resolveQuery/`;
 
   const USERS_URL = "users";
   // const { drawerStatus, setDrawerStatus } = useContext(AuthContext);
@@ -65,7 +67,6 @@ function AdminDashboard() {
     navigate(`/edit_student/${id}`)
   };
 
-  const handleSubmitQuery = async ()=>{}
   const handleCancel = () =>{
     setQueryFormStatus(false);
   }
@@ -79,6 +80,22 @@ function AdminDashboard() {
     }
     catch(err){
       console.log("In Get Error all Queries of UserDashboard.js"+err);
+    }
+  }
+  
+  const [currentQuery, setCurrentQuery] = useState(null)
+
+  const resolveQuery = async() =>{
+    try{
+      const response = await axios.put(RESOLVE_QUERY_URL + currentQuery?.id,{answer});
+      console.log("In Get all Queries of UserDashboard.js"+ JSON.stringify(response.data));
+      setCurrentQuery(null)
+      getAllQueries();
+      setAnswer('');
+      setQueryFormStatus(false);
+    }
+    catch(err){
+      console.log("In Resolve Query Error"+err);
     }
   }
 
@@ -108,30 +125,33 @@ function AdminDashboard() {
           {/* </div> */}
       
           <Drawer title="Queries Section Student" placement="right" onClose={onClose} open={drawerStatus}>
-        <Button onClick={()=>{setQueryFormStatus(true)}}>Raise Query</Button>
+        {/* <Button onClick={()=>{setQueryFormStatus(true)}}>Raise Query</Button> */}
         {queries?.map((ele)=>{return <Card key={ele.id}>
-          {ele.question}
-          {ele.answer}
+          <p>
+            Q : {ele.question}
+            </p>
+            <pre>
+          Ans : {ele.answer}
+            </pre>
+          <Button onClick={()=>{setQueryFormStatus(true);setCurrentQuery(ele);}} disabled={ele?.resolved}>Resolve</Button>
           </Card>})}
-        <p>Some contents...</p>
-        <p>Some contents...</p>
       </Drawer>
       <FloatButton onClick={onOpen}>Ask Queries</FloatButton>
       <Modal
         open={queryFormStatus}
-        title="Raise Query"
+        title="Resolve Query"
         // onOk={handleOk}
         // onCancel={handleCancel}
         footer={[
           <Button key="back" onClick={handleCancel}>
             Cancel
           </Button>,
-          <Button key="submit" type="primary" onClick={handleSubmitQuery}>
+          <Button key="submit" type="primary" onClick={resolveQuery}>
             Submit
           </Button>,
         ]}
         >
-        <Space>Ask Your Dought</Space>   
+        <Space>Question : {currentQuery?.question}</Space>   
         <br/>    
         <TextArea value={answer} onChange={(e)=>{setAnswer(e.target.value)}} placeholder={'Ask Question'} />
  

@@ -7,9 +7,9 @@ import AuthContext from '../context/AuthProvider';
 import { toast } from 'react-toastify';
 import { Space } from 'antd';
 
-function EnrolledCourse({newEnroll}) {
-  const USERS_URL = "users/allCourses";
+function EnrolledCourse() {
   const { auth } = useContext(AuthContext);
+  const GET_ENROLLED = `users/${auth?.id}/enrolled-courses`;
   const navigate = useNavigate()
 
   const [courses, setCourses] = useState(null);
@@ -17,7 +17,7 @@ function EnrolledCourse({newEnroll}) {
   const getData = async () => {
 
     try {
-      const response = await axios.get(USERS_URL
+      const response = await axios.get(GET_ENROLLED
       );
       console.log("In Get API of Enrolled Student : "+response.data)
       setCourses(response.data)
@@ -50,12 +50,7 @@ function EnrolledCourse({newEnroll}) {
     <CourseBox title={"ele.title"} description={"ele.description"} capacity={30} />
     <CourseBox title={"ele.title"} description={"ele.description"} capacity={30} /> */}
     {courses? courses.map( (ele)=>{
-        return <div onClick={()=>{
-          newEnroll ? 
-          navigate('../course/enroll/'+ele.id) 
-          : 
-          navigate('../course/'+ele.id)}
-        } className="course_box_len"> 
+        return <div onClick={()=>{ navigate('../course/'+ele.id)}} className="course_box_len"> 
         <CourseBox title={ele.title} description={ele.description} capacity={ele.capacity} /> 
          </div>
     }):null}

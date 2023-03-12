@@ -58,7 +58,7 @@ function SignupFormUser() {
       </center>
       <label>
         First Name:
-        <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+        <input required type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
       </label>
       <br />
       <label>
@@ -68,12 +68,12 @@ function SignupFormUser() {
       <br />
       <label>
         Email:
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       </label>
       <br />
       <label>
         Password:
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input required type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       </label>
       <br />
       <button type="submit" className='login-form-item-sb'>Sign Up</button>

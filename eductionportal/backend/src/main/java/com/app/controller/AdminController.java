@@ -30,6 +30,7 @@ import com.app.pojos.Query;
 import com.app.pojos.User;
 import com.app.service.AdminService;
 import com.app.service.AssignmentService;
+import com.app.service.ContentService;
 import com.app.service.QueryService;
 
 @RestController
@@ -42,6 +43,8 @@ public class AdminController {
 	private AssignmentService assignmentService;
 	@Autowired
 	private QueryService queryService;
+	@Autowired
+    private ContentService contentService;
 
 
 	public AdminController() {
@@ -141,5 +144,15 @@ public class AdminController {
 		queryService.deleteQuery(queryId);
 	}
 	//method to delete a content 
-	
+	@DeleteMapping("/content/{contentId}")
+	public ResponseEntity<?> deleteContent(@PathVariable Long contentId) {
+		try {
+			contentService.deleteContentById(contentId);
+			return ResponseEntity.ok().build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
 }

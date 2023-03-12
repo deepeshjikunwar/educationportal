@@ -3,6 +3,8 @@
     margin-top: 3cm;
     width: 90vw;
     height: 80vh;
+    display: grid;
+    place-content: center;
 }
 .dashboard >h1{
     display: grid;

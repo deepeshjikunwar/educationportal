@@ -3,9 +3,10 @@ import AuthContext from '../context/AuthProvider';
 import { Link } from 'react-router-dom';
 import '../CSS/Header.css';
 import Footer from './Footer';
+import { Button } from 'antd';
 
 function Header() {
-  const { auth } = useContext(AuthContext);
+  const { auth, setDrawerStatus } = useContext(AuthContext);
   console.log('In header : ' + JSON.stringify(auth));
 
   return (
@@ -30,6 +31,9 @@ function Header() {
           <li>
             <Footer/>
           </li>
+          {/* <li>
+            <Button onClick={()=>setDrawerStatus(true)} >Quries</Button>
+          </li> */}
         </ul>
       </nav>
     </header>

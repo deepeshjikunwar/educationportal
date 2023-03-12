@@ -34,22 +34,13 @@ function LoginUser() {
 
     setEmail('')
     setPassword('')
-    // toast.success('Succesfullly Logged In : '+auth.firstName,{
-    //   position:toast.POSITION.TOP_RIGHT, autoClose:2000
-    // });
+
       toast("Succesfully Logged In",{position:"top-right",autoClose:2000})
     navigate('../user_dashboard',{replace:true})
 
     // console.log(auth);
     } catch(err){
-      // if (!err) {
-      //   setErrMsg('No Server Response');
-      // } else if (err === 401) {
-      //   setErrMsg('Unauthorized');
-      //   } else {
-      //   // setErrMsg(err);
-      //   // console.log(err);
-      // }
+ 
       if(err.code === "ERR_NETWORK"){
         toast("Server Not Responding Logged In",{position:"top-right",autoClose:2000})
         navigate('../')

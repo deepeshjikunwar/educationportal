@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import './App.css';
+// import './App.css';
 import Login from './Components/Login';
 import Header from './Components/Header';
 import SignupForm from './Components/SignupForm';
@@ -15,6 +15,7 @@ import Footer from './Components/Footer';
 import {ToastContainer, toast } from 'react-toastify';
 import CourseForm from './Components/CourseForm';
 
+
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminStudentList from './Components/AdminStudentList';
@@ -22,6 +23,11 @@ import AdminCourseList from './Components/AdminCourseList';
 import Course from './Components/Course';
 import EnrolledCourse from './Components/EnrolledCourse';
 import AvailableCourses from './Components/AvailableCourses';
+import CourseUser from './Components/CourseUser';
+import CourseStudent from './Components/CourseStudent';
+import CodeEditor from './Components/CodeEditor';
+import { Col, Row } from 'antd';
+import AddAssignmentForm from './Components/AddAssignmentForm';
 
 function App() {
   // toast.configure();
@@ -31,11 +37,14 @@ function App() {
   // toast('hello')
   console.log("In admin : "+auth);
   return (
-    <div className="App">
+    <>
+    <Row>
+      <Col span={24}>
       <Header />
-      
-      <main>
-     
+      </Col>
+    </Row>  
+    <Row>
+      <Col span={24}>
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/login_user' element={<Login />} />
@@ -47,14 +56,20 @@ function App() {
         {/* <Route path='/course' element={<Course />} /> */}
         <Route path='/user_dashboard/' element={<UserDashboard />} >
             <Route path='enrolled_courses' element={<EnrolledCourse />} />
-            <Route path='available_courses' element={<AvailableCourses />} />
+            <Route path='available_courses' element={<AvailableCourses/>} />
+            <Route path='course/:id' element={<CourseUser />} />
+            <Route path='course/enroll/:id' element={<CourseUser isEnroll={true}/>} />
+            <Route path='code_editor/:id' element={<CodeEditor/>} />
         </Route>
         <Route path='/admin_dashboard/' element={<AdminDashboard />} >
             <Route path='students' element={<AdminStudentList />} />
             <Route path='course/:id' element={<Course />} />
+            <Route path='courseStudentList/:id' element={<CourseStudent />} />
             <Route path='courses' element={<AdminCourseList courses={auth? auth.courses:""}/>}/>
+            <Route path='courseStudent' element={<AdminCourseList courses={auth? auth.courses:""} forStudent={true}/>}/>
             <Route path='editStudent/:id' element={<EditStudent />}/>
             <Route path='addCourse' element={<CourseForm />}/>
+            <Route path='addAssignment' element={<AddAssignmentForm />}/>
 
         </Route>
         <Route path ='/edit_student/:id' element={<EditStudent />} />
@@ -62,10 +77,11 @@ function App() {
         <Route path='/addCourse' element={<CourseForm />}  /> 
 
       </Routes>
-      </main>
-  
+      </Col>
+      </Row>     
+      {/* <Footer /> */}
       <ToastContainer></ToastContainer>
-    </div>
+    </>
   );
 }
 

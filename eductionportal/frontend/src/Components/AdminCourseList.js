@@ -1,41 +1,53 @@
-import React,{useContext, useEffect} from 'react'
+import React,{useContext, useEffect, useState} from 'react'
 import CourseBox from './CourseBox'
-import '../CSS/AdminCourseList.css'
+// import '../CSS/AdminCourseList.css'
 import { useNavigate } from 'react-router-dom'
 import AuthContext from '../context/AuthProvider';
 import { toast } from 'react-toastify';
-function AdminCourseList({ courses }) {
+import {  Space } from 'antd';
+import axios from '../Api/axios';
+function AdminCourseList({forStudent }) {
     // let courses = [32,333];
     const { auth } = useContext(AuthContext);
     const navigate = useNavigate()
-
+    
     useEffect(() => {
+        console.log("FOR COURSE STUDENT LIST : "+forStudent);
         if(auth === null || auth === undefined) {
             toast.info("Not Authorized Login First",{autoClose:200});
             navigate('../');
-          }
+        }
     }, [])
+  
+    const [courses, setCourses] = useState();
+    const GET_ALL_COURSE = `admin/${auth?.id}/courses`;
+    const getAllCourses = async() =>{
+        try{
+          const response = await axios.get(GET_ALL_COURSE);
+          console.log("In Get all Courses"+ JSON.stringify(response.data));
+          setCourses(response.data)
+        }
+        catch(err){
+          console.log("In Get Error all Queries of UserDashboard.js"+err);
+        }
+      }
     
+      useEffect(() => {
+        if(courses === null || courses === undefined) getAllCourses();
+      })
+      
 
     // console.log("In Admin Course List : " + JSON.stringify(courses))
     return (
-        <div className='admin-course-list'>
-            {/* Course List */}
-            {/* <CourseBox onClick={()=>{alert('hellll')}} title="Java" description="Good" capacity="30" /> */}
-            {/* <div onClick={() =>  */}
-                {/* // ('dsff')}> */}
-                {/* <CourseBox title="Java" description="Good" capacity="30" /> */}
-            {/* </div> */}
-            {/* {courses? courses.map((ele)=>{ return <div onClick={()=>{console.log(ele.id);}}> <CourseBox className="course_box"} title={ele.title} description={ele.description} capacity={ele.capacity} /> </div>}) : null} */}
-            {/* <CourseBox title={"ele.title"} description={"ele.description"} capacity={30} />
-            <CourseBox title={"ele.title"} description={"ele.description"} capacity={30} />
-            <CourseBox title={"ele.title"} description={"ele.description"} capacity={30} /> */}
+        <Space direction="horizontal" size={10} className='admin-course-list'>
             {courses? courses.map( (ele)=>{
-                return <div onClick={()=>{navigate('../course/'+ele.id)}} className="course_box_len"> 
-                <CourseBox title={ele.title} description={ele.description} capacity={ele.capacity} /> 
+                return <div onClick={()=>{
+                    forStudent ? navigate('../courseStudentList/'+ele.id) :navigate('../course/'+ele.id)
+                }} className="course_box_len"> 
+                <CourseBox title={ele.title} description={ele.description} capacity={ele.capacity} forStudent={forStudent}/> 
                  </div>
             }):null}
-        </div>
+        </Space>
     )
 }
 

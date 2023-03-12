@@ -144,10 +144,10 @@ public class AdminController {
 		queryService.deleteQuery(queryId);
 	}
 	//method to delete a content 
-	@DeleteMapping("/content/{contentId}")
-	public ResponseEntity<?> deleteContent(@PathVariable Long contentId) {
+	@DeleteMapping("course/{courseId}/content/{contentId}")
+	public ResponseEntity<?> deleteContent(@PathVariable Long courseId,@PathVariable Long contentId) {
 		try {
-			contentService.deleteContentById(contentId);
+			contentService.deleteContentById(courseId,contentId);
 			return ResponseEntity.ok().build();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -54,6 +54,11 @@ public class Course extends BaseEntity{
 	    content.setCourse(this);
 	    return content;
 	}
+	public Content deleteContentFromCourse(Content content) {
+		contents.remove(content);
+		content.setCourse(null);
+		return content;
+	}
 
 	@ManyToMany(mappedBy = "enrolledCourses")
 	@JsonIgnore

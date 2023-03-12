@@ -63,7 +63,7 @@ public class AdminController {
 	public ResponseEntity<?> signup(@RequestBody AdminSignup transientAdmin){
 		return ResponseEntity.status(HttpStatus.CREATED).body(adminService.addAdmin(transientAdmin));
 	}
-	@PostMapping("{adminId}/addCourse")
+	@PostMapping("/{adminId}/addCourse")
 	public ResponseEntity<?> addCourse(@RequestBody AddCourse transientCourse,@PathVariable Long adminId){
 		return ResponseEntity.status(HttpStatus.CREATED).body(adminService.addCourse(transientCourse, adminId));
 
@@ -78,7 +78,7 @@ public class AdminController {
 		return  ResponseEntity.status(HttpStatus.CREATED).body(adminService.findAllCourseByAdminId(adminId));
 	}
 
-	//method to get a list of student enrolled in a course by a particular admin
+	//method to get a list of user enrolled in a course by a particular admin
 	@GetMapping("/{adminId}/courses/{courseId}/users")
 	public List<UserDTO> getUsersEnrolledInCourseAddedByAdmin(
 			@PathVariable("adminId") Long adminId,
@@ -105,7 +105,7 @@ public class AdminController {
 	}
 
 	//delete a student from a particular course
-	@DeleteMapping("{courseId}/users/{userId}")
+	@DeleteMapping("/{courseId}/users/{userId}")
 	public ResponseEntity<?> removeUserFromCourse(@PathVariable Long courseId, @PathVariable Long userId) {
 		adminService.removeUserFromCourse(courseId, userId);
 		return ResponseEntity.ok().build();
@@ -130,7 +130,7 @@ public class AdminController {
 	}
 
 	//method to resolve a query
-	@PutMapping("{adminId}/resolveQuery/{queryId}")
+	@PutMapping("/{adminId}/resolveQuery/{queryId}")
 	public Query resolveQuery(@PathVariable Long adminId,@PathVariable Long queryId, @RequestBody ResolveQueryDTO resolvedQuery) {
 		return queryService.resolveQuery(adminId,queryId, resolvedQuery);
 	}
@@ -140,4 +140,6 @@ public class AdminController {
 	public void deleteQuery(@PathVariable Long queryId) {
 		queryService.deleteQuery(queryId);
 	}
+	//method to delete a content 
+	
 }

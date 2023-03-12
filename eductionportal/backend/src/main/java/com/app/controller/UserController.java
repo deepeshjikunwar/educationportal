@@ -142,7 +142,7 @@ public class UserController {
 
 
 	//method for user to enroll into a course
-	@GetMapping("{userId}/enroll/{courseId}") 
+	@GetMapping("/{userId}/enroll/{courseId}") 
 	public ResponseEntity<?> enrollIntoCourse(@PathVariable Long userId, @PathVariable Long courseId){
 		return  ResponseEntity.status(HttpStatus.CREATED).body(userService.enrollIntoCourse(userId,courseId));
 
@@ -179,7 +179,7 @@ public class UserController {
 		return ResponseEntity.ok().body(courses);
 	}
 	//method to add a query
-	@PostMapping("{userId}/addQuery")
+	@PostMapping("/{userId}/addQuery")
     public Query addQuery(@RequestBody QueryDTO query, @PathVariable Long userId) {
         return queryService.saveQuery(query,userId);
     }
@@ -200,7 +200,7 @@ public class UserController {
 		return assignmentService.getAssignmentById(assignmentId);
 	}
 	//method to get visit by userId and contentId
-	@GetMapping("{userId}/visited/{contentId}")
+	@GetMapping("/{userId}/visited/{contentId}")
 	public Visit getVisited(@PathVariable Long userId,@PathVariable Long contentId){
 		return visitService.getVisited(userId, contentId);
 	}

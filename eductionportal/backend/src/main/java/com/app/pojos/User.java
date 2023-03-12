@@ -30,8 +30,8 @@ public class User extends BaseEntity {
 	private String password;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "student_course",
-	joinColumns = @JoinColumn(name="student_id"),
+	@JoinTable(name = "user_course",
+	joinColumns = @JoinColumn(name="user_id"),
 	inverseJoinColumns = @JoinColumn(name = "course_id"))
 	private List<Course> enrolledCourses;
 	

@@ -5,16 +5,20 @@ import axios from '../Api/axios';
 import CourseForm from './CourseForm';
 import CourseBox from './CourseBox';
 import Sidebar from './Sidebar'
-import { Drawer, Layout, FloatButton } from 'antd'
+import { Drawer, Layout, FloatButton, Input, Modal, Button, Space, Card } from 'antd'
 import AuthContext from '../context/AuthProvider';
 
 const { Sider, Content } = Layout;
 
 function AdminDashboard() {
+  const {TextArea} = Input;  
+  const navigate = useNavigate();
+  const QUERY_URL = `users/addQuery`
+  const GET_QUERY_URL = `admin/getAllQuery`
 
   const USERS_URL = "users";
   // const { drawerStatus, setDrawerStatus } = useContext(AuthContext);
-  const navigate = useNavigate();
+
   // state to hold the list of students
   const [students, setStudents] = useState([
     { id: 1, firstName: 'John', lastName: 'Doe', email: 20 },
@@ -23,12 +27,14 @@ function AdminDashboard() {
   ]);
 
   const [drawerStatus, setDrawerStatus] = useState(false);
+  const [queryFormStatus, setQueryFormStatus] = useState(false);
 
   const onClose = () => {
     setDrawerStatus(false);
   };
   const onOpen = () => {
     setDrawerStatus(true);
+    getAllQueries()
   }
 
   const getData = async () => {
@@ -46,8 +52,7 @@ function AdminDashboard() {
     getData();
   }, []);
 
-
-
+  const [answer, setAnswer] = useState('');
   // function to delete a student
   const handleDeleteStudent = (id) => {
     const newStudents = students.filter((student) => student.id !== id);
@@ -59,6 +64,23 @@ function AdminDashboard() {
     // implementation for editing a student
     navigate(`/edit_student/${id}`)
   };
+
+  const handleSubmitQuery = async ()=>{}
+  const handleCancel = () =>{
+    setQueryFormStatus(false);
+  }
+
+  const [queries, setQueries] = useState();
+  const getAllQueries = async() =>{
+    try{
+      const response = await axios.get(GET_QUERY_URL);
+      console.log("In Get all Queries of UserDashboard.js"+ JSON.stringify(response.data));
+      setQueries(response.data)
+    }
+    catch(err){
+      console.log("In Get Error all Queries of UserDashboard.js"+err);
+    }
+  }
 
   return (
     <Layout hasSider className='dashboard'>
@@ -85,12 +107,35 @@ function AdminDashboard() {
           {/* <button onClick={() => { navigate("/courses") }}>Add Course</button> */}
           {/* </div> */}
       
-        <Drawer title="Queries Section" placement="right" onClose={onClose} open={drawerStatus}>
-        <p>Check Queries</p>
+          <Drawer title="Queries Section Student" placement="right" onClose={onClose} open={drawerStatus}>
+        <Button onClick={()=>{setQueryFormStatus(true)}}>Raise Query</Button>
+        {queries?.map((ele)=>{return <Card key={ele.id}>
+          {ele.question}
+          {ele.answer}
+          </Card>})}
         <p>Some contents...</p>
         <p>Some contents...</p>
-      </Drawer> 
+      </Drawer>
       <FloatButton onClick={onOpen}>Ask Queries</FloatButton>
+      <Modal
+        open={queryFormStatus}
+        title="Raise Query"
+        // onOk={handleOk}
+        // onCancel={handleCancel}
+        footer={[
+          <Button key="back" onClick={handleCancel}>
+            Cancel
+          </Button>,
+          <Button key="submit" type="primary" onClick={handleSubmitQuery}>
+            Submit
+          </Button>,
+        ]}
+        >
+        <Space>Ask Your Dought</Space>   
+        <br/>    
+        <TextArea value={answer} onChange={(e)=>{setAnswer(e.target.value)}} placeholder={'Ask Question'} />
+ 
+      </Modal>
     </Layout>
 
 

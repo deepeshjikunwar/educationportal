@@ -1,12 +1,13 @@
 import { Form,Input, Checkbox, Button, DatePicker, Select } from 'antd';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useParams,useNavigate } from 'react-router-dom';
 import {toast} from 'react-toastify'
 import axios from '../Api/axios';
+import AuthContext from '../context/AuthProvider';
 function AddAssignmentForm() {
-  const {id} = useParams()
+  const { auth } = useContext(AuthContext);
   const navigate = useNavigate()
-  const ASSIGNMENT_URL = `/admin/course/${id}/addAssignment`
+  const ASSIGNMENT_URL = `/admin/course/${auth.id}/addAssignment`
   const [form] = Form.useForm();
   const [date, setDate] = useState();
   const onFinish = async(values) => {

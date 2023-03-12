@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../CSS/Sidebar.css';
 function Sidebar({Sider}){
     const navigate = useNavigate(); 
-    return(
 
+    return(
     <Sider style={
             {
             overflow: 'auto',
@@ -17,7 +17,7 @@ function Sidebar({Sider}){
           }  className="sidebar">
    <button className='sidebar-btns' onClick={()=>{navigate('courseStudent')}}> Course Students</button>
     <button className='sidebar-btns' onClick={()=>{navigate('courses')}}>Course List</button>
-    <button className='sidebar-btns' onClick={()=>{navigate('addAssignment')}}>Add Student</button>
+    <button className='sidebar-btns' onClick={()=>{navigate(`addAssignment`)}}>Add Student</button>
     <button className='sidebar-btns' onClick={() => { navigate("addCourse") }}>Add Course</button>
     <button className='sidebar-btns' onClick={()=>{navigate('students')}}> All Student List</button>
     </Sider>

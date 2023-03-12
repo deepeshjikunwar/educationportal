@@ -14,7 +14,7 @@ function UserDashboard() {
   const {TextArea} = Input;  
     const navigate = useNavigate();
     const { auth } = useContext(AuthContext);
-    const QUERY_URL = `users/${auth.id}/addQuery`
+    const QUERY_URL = `users/${auth?.id}/addQuery`
     const GET_QUERY_URL = `admin/getAllQuery`
     // const {drawerStatus, setDrawerStatus} = useContext(AuthContext);
     // console.log(auth);

@@ -69,7 +69,10 @@ function Login() {
 
           <input required type="password" name="password" id="password" onChange={(e) => setPassword(e.target.value)} placeholder="Enter password" />
         </div>
-        <input className='login-form-item-lb' type="submit" value="                           Log In" />
+        <div className="login-form-item">
+          {/* <button>Sign Up</button> */}
+        <button  type="submit">Log In</button>
+        </div>
         <div className="login-form-item">
           <label>
           Don't have account?

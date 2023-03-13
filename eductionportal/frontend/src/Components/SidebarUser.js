@@ -41,8 +41,8 @@ function SidebarUser(){
     <button className='sidebar-btns' onClick={()=>{navigate('available_courses')}}>Available Course</button><br />
     <button className='sidebar-btns' onClick={()=>{navigate('code_editor')}}> Progress Report </button>
     <Popconfirm
-        title="Delete the task"
-        description="Are you sure to delete this task?"
+        title="Do you want to Delete your Account?"
+        description="Your data will be unrecoverable !"
         onConfirm={handleDeleteUser}
         onCancel={cancel}
         okText="Yes"

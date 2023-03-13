@@ -12,8 +12,10 @@ const {TextArea} = Input;
 function Course() {
   const { id } = useParams();
   const BASE_URL = '/admin/addContent/' + id;
+  const DELETE_CONTENT_URL = '/admin/content/';
   const BASE_URL_CONTENT = "/admin/course/" + id;
   const ASSIGNMENT_URL = `users/courses/${id}/getAssignment`;
+  const DELETE_ASSIGNMENT_URL = `admin/course/${id}/assignment/`;
   const ASSIGNMENT_ADD_URL = `/admin/course/${id}/addAssignment`
 
   const { auth } = useContext(AuthContext);
@@ -87,22 +89,29 @@ function Course() {
     }
 
   }
-  const handleDeleteContent = async () => {
+  const handleDeleteContent = async (cont_id) => {
     try {
-      const response = await axios.delete(BASE_URL,
-        { 'contentName': newTitle, 'link': newContent }
-
+      const response = await axios.delete(DELETE_CONTENT_URL+cont_id
       );
-      setNewTitle('')
-      setNewContent('')
-      toast('content Succefuly added !', { autoClose: 200 });
+      console.log("In Delete Contentof"+cont_id+" : "+JSON.stringify(response));
+      toast('content Deleted !', { autoClose: 200 });
       getData();
 
     } catch (e) {
       console.log(e)
       // alert("Something went wrong")
     }
-
+  }
+  const handleDeleteAssignment = async (assignId) => {
+    try {
+      const response = await axios.delete(DELETE_ASSIGNMENT_URL+assignId
+      );
+      toast('Assignment Deleted !', { autoClose: 200 });
+      getAssignment();
+    } catch (e) {
+      console.log(e)
+      // alert("Something went wrong")
+    }
   }
   const getAssignment = async() => {
     try {
@@ -134,11 +143,11 @@ function Course() {
       sortDirections: ['descend'],
     },
     {
-      title: 'Solve',
+      title: 'Action',
       dataIndex: '',
       key: 'x',
     
-      render: (_,record) => <Button onClick={()=>{navigate(`../code_editor/`+record.id)}} ></Button>,
+      render: (_,record) => <Button onClick={()=>{handleDeleteAssignment(record.id)}} danger ghost>Delete</Button>,
     },                      //c<Checkbox onChange={onChange}>Checkbox</Checkbox>;
   ];
   const columns = [

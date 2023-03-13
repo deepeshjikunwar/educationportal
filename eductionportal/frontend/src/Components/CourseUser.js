@@ -87,7 +87,6 @@ const loadCheckedData= async() => {
       );
       console.log("In Get Data of CourseUser Enroll"+JSON.stringify(response));
       setEnrollStatus(true)
-
 }catch(e){
 console.log("In Get Data of Course :"+e)
 // console.log("URL ===="+`/admin/${auth.id}/courses`)
@@ -198,7 +197,7 @@ const onChange = (pagination, filters, sorter, extra) => {
       columns={columns2} dataSource={assignment} onChange={onChange} />
     
     
-    <Button onClick={enrollInCourse}>{enrollStatus ? 'Enrolled': 'Enroll'}</Button> 
+    <Button onClick={enrollInCourse}>{enrollStatus ? 'Enrolled': 'Enroll Now'}</Button> 
     
 
   </Space>

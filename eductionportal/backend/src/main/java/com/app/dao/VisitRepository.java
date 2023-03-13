@@ -10,4 +10,5 @@ import com.app.pojos.Visit;
 public interface VisitRepository extends JpaRepository<Visit,Long> {
 	Visit findByUserIdAndContentId(Long user, Long content);
 	List<Visit> findAllVisitedByIsVisited(boolean isVisited);
+	void deleteByUserId(Long userId);
 }

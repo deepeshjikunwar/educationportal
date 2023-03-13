@@ -2,6 +2,7 @@ package com.app.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.app.dao.CourseRepository;
 import com.app.dao.UserRepository;
+import com.app.dao.VisitRepository;
 import com.app.dto.UserSignup;
 import com.app.exception.EntityNotFound;
 import com.app.exception.UserHandlingException;
@@ -25,6 +27,8 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepo;
 	@Autowired
 	private CourseRepository courseRepo;
+	@Autowired
+	private VisitRepository visitRepo;
 	
 	@Override
 	public List<User> getAllUsers() {
@@ -32,11 +36,28 @@ public class UserServiceImpl implements UserService {
 		return userRepo.findAll();
 	}
 	
+//	@Override
+//	public String deleteUser(Long userId) {
+//		userRepo.deleteById(userId);
+//		return "User details deleted for ID = " + userId;
+//	}
 	@Override
 	public String deleteUser(Long userId) {
-		userRepo.deleteById(userId);
-		return "User details deleted for ID =" + userId;
-	}
+        Optional<User> userOptional = userRepo.findById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            List<Visit> visits = user.getVisits();
+            // Delete all visits associated with the user
+            visits.forEach(visit -> visitRepo.deleteByUserId(userId));
+            // Delete the user
+            userRepo.deleteById(userId);
+            return "User Successfully Deleted";
+            
+        } else {
+            throw new EntityNotFound("User with id " + userId + " not found");
+        }
+    }
+	
 	@Override
 	public User getDetails(Long userId) {
 		return userRepo.findById(userId).orElseThrow(()->new UserHandlingException("Invalid User ID"));

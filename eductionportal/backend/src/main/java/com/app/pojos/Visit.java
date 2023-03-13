@@ -1,8 +1,13 @@
 package com.app.pojos;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -17,7 +22,8 @@ import lombok.Setter;
 @Entity
 public class Visit extends BaseEntity {
 	
-@ManyToOne(fetch = FetchType.LAZY)
+@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+//@OnDelete(action = OnDeleteAction.CASCADE)
 @JsonIgnore
 private User user;
 
